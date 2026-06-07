@@ -226,160 +226,10 @@ em { color: var(--accent); font-style: normal; }
   .works-grid    { grid-template-columns: repeat(3,1fr) !important; }
   .cat-works-grid { grid-template-columns: repeat(3,1fr) !important; }
 }
-
-/* ── Nav Trigger ── */
-#nav-trigger {
-  position: fixed; top: 20px; right: 20px; z-index: 9000;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(232,223,200,0.08); border: 1px solid rgba(232,223,200,0.18);
-  color: var(--accent); font-size: 20px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-#nav-trigger:hover { background: rgba(232,223,200,0.16); }
-
-/* ── Side Nav ── */
-#side-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-  z-index: 9001; opacity: 0; transition: opacity 0.3s;
-}
-#side-overlay.open { opacity: 1; }
-
-#side-nav {
-  position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
-  background: #111111; z-index: 9002;
-  transform: translateX(100%); transition: transform 0.32s cubic-bezier(.4,0,.2,1);
-  display: flex; flex-direction: column;
-  border-left: 1px solid rgba(232,223,200,0.08);
-}
-#side-nav.open { transform: translateX(0); }
-
-.sn-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 20px 18px;
-  border-bottom: 1px solid rgba(232,223,200,0.08);
-}
-.sn-title { font-size: 15px; font-weight: 700; color: var(--accent); }
-.sn-close {
-  background: none; border: none; color: rgba(232,223,200,0.35);
-  font-size: 22px; cursor: pointer; line-height: 1; padding: 2px;
-  transition: color 0.15s;
-}
-.sn-close:hover { color: var(--accent); }
-
-.sn-items { flex: 1; overflow-y: auto; }
-
-.sn-item {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 20px; cursor: pointer;
-  border-bottom: 1px solid rgba(232,223,200,0.05);
-  transition: background 0.15s; text-decoration: none;
-}
-.sn-item:hover { background: rgba(232,223,200,0.04); }
-.sn-item.accent .sn-item-title { color: var(--accent); }
-
-.sn-item-left { display: flex; flex-direction: column; gap: 3px; }
-.sn-item-title { font-size: 15px; font-weight: 600; color: var(--text-light); }
-.sn-item-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.3px; }
-.sn-arrow { color: rgba(232,223,200,0.25); font-size: 11px; flex-shrink: 0; }
-
-.sn-footer {
-  padding: 16px 20px;
-  border-top: 1px solid rgba(232,223,200,0.08);
-  font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px;
-}
-
-/* ── Brand Collab Stats ── */
-.collab-stats { display: flex; gap: 2px; flex-wrap: wrap; }
-.collab-stat {
-  flex: 1 1 130px; padding: 24px 20px;
-  background: var(--bg-dark);
-  border: 1px solid rgba(232,223,200,0.07);
-  display: flex; flex-direction: column; gap: 4px;
-}
-.collab-stat-num { font-size: 28px; font-weight: 900; color: var(--accent); letter-spacing: -1px; line-height: 1; display: flex; align-items: baseline; gap: 3px; }
-.collab-stat-unit { font-size: 16px; color: rgba(232,223,200,0.45); font-weight: 400; }
-.collab-stat-desc { font-size: 12px; color: var(--text-mid); margin-top: 6px; }
-.collab-stat-note { font-size: 10px; color: var(--text-muted); letter-spacing: 0.5px; margin-top: 2px; }
-
-/* ── Admin Modal ── */
-#admin-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
-  z-index: 9500; align-items: center; justify-content: center;
-}
-#admin-overlay.open { display: flex; }
-
-#admin-box {
-  width: 92%; max-width: 680px; max-height: 88vh;
-  background: #1c1410; border-radius: 16px;
-  overflow: hidden; display: flex; flex-direction: column;
-  border: 1px solid rgba(232,223,200,0.12);
-}
-.admin-hdr {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 20px 0;
-}
-.admin-hdr h3 { font-size: 16px; font-weight: 700; color: var(--text-light); }
-.admin-close {
-  background: none; border: none; color: rgba(232,223,200,0.4);
-  font-size: 22px; cursor: pointer; padding: 2px; transition: color 0.15s;
-}
-.admin-close:hover { color: var(--text-light); }
-
-#admin-login { padding: 40px 28px; text-align: center; }
-.admin-pw-input {
-  width: 100%; padding: 12px 16px;
-  background: rgba(232,223,200,0.06); border: 1px solid rgba(232,223,200,0.2);
-  border-radius: 8px; color: var(--text-light); font-size: 15px;
-  text-align: center; letter-spacing: 3px; margin: 16px 0 12px;
-  font-family: inherit;
-}
-.admin-pw-input:focus { outline: none; border-color: var(--accent); }
-.admin-pw-err { font-size: 12px; color: #e06060; margin-bottom: 10px; min-height: 18px; }
-
-.admin-tabs {
-  display: flex; gap: 6px; flex-wrap: wrap;
-  padding: 16px 20px 0;
-}
-.admin-tab {
-  padding: 7px 16px; border-radius: 20px;
-  border: 1px solid rgba(232,223,200,0.2);
-  font-size: 12px; cursor: pointer;
-  background: none; color: var(--text-muted); transition: all 0.15s;
-}
-.admin-tab.active { background: var(--accent); color: #0a0a0a; font-weight: 700; border-color: var(--accent); }
-.admin-tab:not(.active):hover { color: var(--text-light); border-color: rgba(232,223,200,0.4); }
-
-.admin-body { flex: 1; overflow-y: auto; padding: 20px; }
-.admin-pane { display: none; }
-.admin-pane.active { display: block; }
-
-.admin-card-editor {
-  background: rgba(232,223,200,0.04); border: 1px solid rgba(232,223,200,0.1);
-  border-radius: 10px; padding: 16px; margin-bottom: 12px;
-}
-.admin-row { display: flex; gap: 10px; margin-bottom: 10px; }
-.admin-field { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-.admin-label { font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px; }
-.admin-input {
-  background: rgba(232,223,200,0.06); border: 1px solid rgba(232,223,200,0.15);
-  border-radius: 6px; padding: 9px 12px;
-  color: var(--text-light); font-size: 14px; width: 100%; font-family: inherit;
-}
-.admin-input:focus { outline: none; border-color: var(--accent); }
-.admin-save-btn {
-  width: 100%; padding: 13px;
-  background: var(--accent); color: #0a0a0a; border: none;
-  border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px;
-  cursor: pointer; margin-top: 6px; transition: background 0.2s;
-}
-.admin-save-btn:hover { background: var(--accent-deep); }
-.admin-coming { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 11px; letter-spacing: 3px; }
 </style>
 </head>
 <body>
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部">↑</button>
-<button id="nav-trigger" onclick="openSideNav()" aria-label="選單">≡</button>
 
 <!-- ① HERO -->
 <section id="hero" style="
@@ -754,7 +604,7 @@ em { color: var(--accent); font-style: normal; }
 
 <!-- ③ CATEGORIES -->
 <section id="categories" style="background:var(--bg-mid);padding:52px 24px;border-top:1px solid rgba(232,223,200,0.08);">
-  <div style="max-width:558px;margin:0 auto;">
+  <div style="max-width:960px;margin:0 auto;">
     <span class="eyebrow">Content Categories</span>
     <h2 class="section-title" style="color:var(--text-light);margin-bottom:28px;">我的內容涵蓋</h2>
     <div class="cat-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);">
@@ -782,6 +632,31 @@ em { color: var(--accent); font-style: normal; }
         <span style="font-size:24px;display:block;margin-bottom:10px;">🤝</span>
         <div style="font-size:14px;font-weight:700;color:var(--text-light);margin-bottom:4px;">品牌合作</div>
         <div style="font-size:11px;color:var(--text-muted);">業配・開箱・活動</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ BRANDS -->
+<section id="brands" style="display:none;background:var(--bg-mid);padding:48px 24px;border-top:1px solid rgba(232,223,200,0.08);">
+  <div style="max-width:800px;margin:0 auto;">
+    <span class="eyebrow">Brand Collaborations</span>
+    <h2 class="section-title" style="margin-bottom:24px;">合作品牌</h2>
+    <div class="brands-row" style="display:flex;flex-wrap:wrap;gap:2px;">
+      <div style="flex:1 1 180px;background:var(--bg-light);padding:28px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;border:1px solid rgba(232,223,200,0.1);">
+        <span style="font-size:28px;">🏪</span>
+        <div style="font-size:13px;font-weight:700;color:var(--text-light);">全家 FamilyMart</div>
+        <div style="font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">第四屆品牌大使</div>
+      </div>
+      <div style="flex:1 1 180px;background:var(--bg-light);padding:28px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;border:1px solid rgba(232,223,200,0.1);">
+        <span style="font-size:28px;">📦</span>
+        <div style="font-size:13px;font-weight:700;color:var(--text-light);">歡迎敲敲小盒子</div>
+        <div style="font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">品牌合作</div>
+      </div>
+      <div style="flex:1 1 180px;background:transparent;border:1px dashed var(--accent);padding:28px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.5;">
+        <span style="font-size:28px;">＋</span>
+        <div style="font-size:13px;font-weight:700;color:var(--text-light);">期待與你合作</div>
+        <div style="font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">Your Brand Here</div>
       </div>
     </div>
   </div>
@@ -1074,234 +949,5 @@ renderTravelGrid('kr');
     <div id="itinerary-content"></div>
   </div>
 </div>
-
-<!-- ── Side Nav Overlay ── -->
-<div id="side-overlay" onclick="closeSideNav()"></div>
-
-<!-- ── Side Nav Panel ── -->
-<div id="side-nav">
-  <div class="sn-header">
-    <span class="sn-title">小西亞的咿</span>
-    <button class="sn-close" onclick="closeSideNav()">×</button>
-  </div>
-  <div class="sn-items">
-    <div class="sn-item" onclick="navTo('explore')">
-      <div class="sn-item-left">
-        <span class="sn-item-title">Reels</span>
-        <span class="sn-item-sub">餐廳・咖啡廳・甜點</span>
-      </div>
-      <span class="sn-arrow">›</span>
-    </div>
-    <div class="sn-item" onclick="navTo('travel')">
-      <div class="sn-item-left">
-        <span class="sn-item-title">旅遊行程</span>
-        <span class="sn-item-sub">台日韓馬完整攻略</span>
-      </div>
-      <span class="sn-arrow">›</span>
-    </div>
-    <div class="sn-item" onclick="navTo('group')">
-      <div class="sn-item-left">
-        <span class="sn-item-title">活動團購</span>
-        <span class="sn-item-sub">開箱・品牌活動</span>
-      </div>
-      <span class="sn-arrow">›</span>
-    </div>
-    <div class="sn-item accent" onclick="window.location.href='collab.html'">
-      <div class="sn-item-left">
-        <span class="sn-item-title">品牌合作</span>
-        <span class="sn-item-sub">洽談合作邀約</span>
-      </div>
-      <span class="sn-arrow">›</span>
-    </div>
-    <div class="sn-item" onclick="openAdmin()">
-      <div class="sn-item-left">
-        <span class="sn-item-title">內容管理</span>
-        <span class="sn-item-sub">需要密碼</span>
-      </div>
-      <span class="sn-arrow">›</span>
-    </div>
-  </div>
-  <div class="sn-footer">@xiaoxiya._.foodie</div>
-</div>
-
-<!-- ── Admin Modal ── -->
-<div id="admin-overlay">
-  <div id="admin-box">
-    <!-- 登入畫面 -->
-    <div id="admin-login">
-      <div class="admin-hdr" style="padding:20px 0 0;">
-        <h3>內容管理</h3>
-        <button class="admin-close" onclick="closeAdmin()">×</button>
-      </div>
-      <p style="font-size:12px;color:var(--text-muted);margin-top:24px;">請輸入管理密碼</p>
-      <input id="admin-pw" type="password" class="admin-pw-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdminPw()">
-      <div id="admin-pw-err" class="admin-pw-err"></div>
-      <button class="admin-save-btn" onclick="checkAdminPw()">進入後台</button>
-    </div>
-    <!-- 後台內容 -->
-    <div id="admin-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
-      <div class="admin-hdr">
-        <h3>內容管理</h3>
-        <button class="admin-close" onclick="closeAdmin()">×</button>
-      </div>
-      <div class="admin-tabs">
-        <button class="admin-tab" onclick="switchAdminTab('shop')">探店</button>
-        <button class="admin-tab" onclick="switchAdminTab('travel')">旅行</button>
-        <button class="admin-tab" onclick="switchAdminTab('group')">團購</button>
-        <button class="admin-tab active" onclick="switchAdminTab('collab')">品牌合作</button>
-        <button class="admin-tab" onclick="switchAdminTab('avatar')">大頭照</button>
-      </div>
-      <div class="admin-body">
-        <div id="admin-pane-shop" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
-        <div id="admin-pane-travel" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
-        <div id="admin-pane-group" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
-        <div id="admin-pane-avatar" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
-        <div id="admin-pane-collab" class="admin-pane active">
-          <p style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:16px;">數 據 卡 片</p>
-          <div id="admin-collab-editors"></div>
-          <button class="admin-save-btn" onclick="saveCollabStats()">儲存並更新頁面</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// ── Side Nav ──
-function openSideNav() {
-  var overlay = document.getElementById('side-overlay');
-  var nav = document.getElementById('side-nav');
-  overlay.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  setTimeout(function() { overlay.classList.add('open'); nav.classList.add('open'); }, 10);
-}
-function closeSideNav() {
-  var overlay = document.getElementById('side-overlay');
-  var nav = document.getElementById('side-nav');
-  overlay.classList.remove('open');
-  nav.classList.remove('open');
-  setTimeout(function() {
-    overlay.style.display = 'none';
-    document.body.style.overflow = '';
-  }, 320);
-}
-function navTo(target) {
-  closeSideNav();
-  setTimeout(function() {
-    if (target === 'explore' || target === 'travel' || target === 'group') {
-      var el = document.getElementById('works');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(function() { switchContentType(target); }, 400);
-    } else {
-      var el = document.getElementById(target);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, 340);
-}
-
-// ── Admin ──
-var ADMIN_PW = 'xiaoxiya';
-var DEFAULT_STATS = [
-  { number: '200', unit: '萬', desc: '單支最高廣告觸及', note: '商家投廣後紀錄' },
-  { number: '2,100', unit: '+', desc: 'IG 粉絲', note: '' },
-  { number: '4,000', unit: '+', desc: '平均每月觸及', note: '' }
-];
-
-function getCollabStats() {
-  try {
-    var s = localStorage.getItem('xiaoxiya_collab_stats');
-    return s ? JSON.parse(s) : DEFAULT_STATS;
-  } catch(e) { return DEFAULT_STATS; }
-}
-
-function renderCollabStats() {
-  var stats = getCollabStats();
-  var el = document.getElementById('collab-stats');
-  if (!el) return;
-  el.innerHTML = stats.map(function(s) {
-    return '<div class="collab-stat">' +
-      '<div class="collab-stat-num">' + s.number + '<span class="collab-stat-unit">' + s.unit + '</span></div>' +
-      '<div class="collab-stat-desc">' + s.desc + '</div>' +
-      (s.note ? '<div class="collab-stat-note">' + s.note + '</div>' : '') +
-    '</div>';
-  }).join('');
-}
-
-function renderAdminCollabEditors() {
-  var stats = getCollabStats();
-  var container = document.getElementById('admin-collab-editors');
-  container.innerHTML = stats.map(function(s, i) {
-    return '<div class="admin-card-editor">' +
-      '<div class="admin-row">' +
-        '<div class="admin-field"><label class="admin-label">數字</label><input class="admin-input" id="stat-num-'+i+'" value="'+s.number+'"></div>' +
-        '<div class="admin-field" style="max-width:100px;"><label class="admin-label">單位</label><input class="admin-input" id="stat-unit-'+i+'" value="'+s.unit+'"></div>' +
-      '</div>' +
-      '<div class="admin-field" style="margin-bottom:10px;"><label class="admin-label">說明</label><input class="admin-input" id="stat-desc-'+i+'" value="'+s.desc+'"></div>' +
-      '<div class="admin-field"><label class="admin-label">備注（選填）</label><input class="admin-input" id="stat-note-'+i+'" value="'+(s.note||'')+'"></div>' +
-    '</div>';
-  }).join('');
-}
-
-function saveCollabStats() {
-  var stats = getCollabStats();
-  var newStats = stats.map(function(s, i) {
-    return {
-      number: document.getElementById('stat-num-'+i).value,
-      unit:   document.getElementById('stat-unit-'+i).value,
-      desc:   document.getElementById('stat-desc-'+i).value,
-      note:   document.getElementById('stat-note-'+i).value
-    };
-  });
-  localStorage.setItem('xiaoxiya_collab_stats', JSON.stringify(newStats));
-  renderCollabStats();
-  var btn = document.querySelector('.admin-save-btn');
-  btn.textContent = '✓ 已儲存';
-  setTimeout(function() { btn.textContent = '儲存並更新頁面'; }, 1500);
-}
-
-function openAdmin() {
-  closeSideNav();
-  setTimeout(function() {
-    document.getElementById('admin-overlay').classList.add('open');
-    document.getElementById('admin-overlay').style.display = 'flex';
-    document.getElementById('admin-login').style.display = 'block';
-    document.getElementById('admin-content').style.display = 'none';
-    document.getElementById('admin-pw').value = '';
-    document.getElementById('admin-pw-err').textContent = '';
-    document.body.style.overflow = 'hidden';
-  }, 340);
-}
-
-function closeAdmin() {
-  document.getElementById('admin-overlay').classList.remove('open');
-  document.getElementById('admin-overlay').style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-function checkAdminPw() {
-  var pw = document.getElementById('admin-pw').value;
-  if (pw === ADMIN_PW) {
-    document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('admin-content').style.display = 'flex';
-    switchAdminTab('collab');
-    renderAdminCollabEditors();
-  } else {
-    document.getElementById('admin-pw-err').textContent = '密碼錯誤，請再試一次';
-    document.getElementById('admin-pw').value = '';
-  }
-}
-
-function switchAdminTab(tab) {
-  document.querySelectorAll('.admin-tab').forEach(function(t) {
-    t.classList.toggle('active', t.getAttribute('onclick').includes("'"+tab+"'"));
-  });
-  document.querySelectorAll('.admin-pane').forEach(function(p) { p.classList.remove('active'); });
-  var pane = document.getElementById('admin-pane-'+tab);
-  if (pane) pane.classList.add('active');
-}
-
-// 初始化品牌合作數據
-renderCollabStats();
-</script>
 </body>
 </html>
