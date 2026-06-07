@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>與小西亞合作｜Brand Collaboration</title>
+<style>
+:root {
+  --bg-dark:   #0a0a0a;
+  --bg-mid:    #141414;
+  --bg-light:  #1a1a1a;
+  --accent:    #e8dfc8;
+  --accent-deep:#c4b898;
+  --text-light:#ffffff;
+  --text-mid:  rgba(232,223,200,0.65);
+  --text-muted:rgba(232,223,200,0.4);
+  --gap:       2px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Helvetica Neue', Arial, 'PingFang TC', sans-serif;
+  line-height: 1.6;
+}
+a { text-decoration:none; }
+em { color: var(--accent); font-style: normal; }
+
+/* ── Sections ── */
+.section { padding: 52px 24px; max-width: 558px; margin: 0 auto; }
+.section-sm { padding: 40px 24px; max-width: 558px; margin: 0 auto; }
+
+.eyebrow {
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent); display: block; margin-bottom: 10px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 900; line-height: 1.15; color: var(--text-light);
+}
+.section-quote {
+  font-size: 13px; color: var(--text-muted);
+  font-style: italic; margin-top: 8px;
+}
+
+/* ── Hero ── */
+#collab-hero {
+  background: var(--bg-dark);
+  border-bottom: 1px solid rgba(232,223,200,0.06);
+  position: relative; overflow: hidden;
+}
+#collab-hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse at 10% 70%, rgba(232,223,200,0.09) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, rgba(232,223,200,0.05) 0%, transparent 45%);
+}
+.hero-divider {
+  width: 36px; height: 2px; background: var(--accent);
+  margin-bottom: 20px; opacity: 0.6;
+}
+.hero-main-title {
+  font-size: clamp(34px, 5.5vw, 56px);
+  font-weight: 900; line-height: 1.1; color: var(--text-light);
+  margin-bottom: 12px;
+}
+.hero-sub {
+  font-size: 13px; color: var(--text-muted);
+  font-style: italic; margin-bottom: 20px;
+}
+.hero-desc {
+  font-size: 14px; color: var(--text-mid); line-height: 1.75;
+  max-width: 480px; margin-bottom: 24px;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-tag {
+  padding: 5px 14px; border-radius: 20px; font-size: 12px;
+  background: rgba(232,223,200,0.07);
+  border: 1px solid rgba(232,223,200,0.15);
+  color: var(--text-mid); letter-spacing: 0.3px;
+}
+
+/* ── Stats ── */
+#collab-stats-section {
+  background: var(--bg-dark);
+  border-bottom: 1px solid rgba(232,223,200,0.06);
+}
+.stats-container {
+  background: var(--bg-mid);
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid rgba(232,223,200,0.08);
+}
+.stat-main {
+  padding: 28px 28px 24px;
+  border-bottom: 1px solid rgba(232,223,200,0.06);
+}
+.stat-main-num {
+  font-size: 48px; font-weight: 900; color: var(--accent);
+  letter-spacing: -2px; line-height: 1; display: flex; align-items: baseline; gap: 4px;
+}
+.stat-main-unit { font-size: 26px; font-weight: 400; color: rgba(232,223,200,0.5); }
+.stat-main-desc { font-size: 13px; color: var(--text-mid); margin-top: 8px; }
+.stat-main-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+.stats-row { display: flex; }
+.stat-sub {
+  flex: 1; padding: 22px 24px;
+  border-right: 1px solid rgba(232,223,200,0.06);
+}
+.stat-sub:last-child { border-right: none; }
+.stat-sub-num {
+  font-size: 28px; font-weight: 900; color: var(--text-light);
+  letter-spacing: -1px; line-height: 1; display: flex; align-items: baseline; gap: 3px;
+}
+.stat-sub-unit { font-size: 16px; font-weight: 400; color: rgba(232,223,200,0.35); }
+.stat-sub-desc { font-size: 11px; color: var(--text-mid); margin-top: 6px; }
+.stat-sub-note { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Collab Types ── */
+#collab-types {
+  background: var(--bg-mid);
+  border-bottom: 1px solid rgba(232,223,200,0.06);
+}
+.types-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 10px; margin-top: 20px;
+}
+.type-card {
+  background: var(--bg-light);
+  border: 1px solid rgba(232,223,200,0.07);
+  border-radius: 10px; padding: 20px 22px;
+}
+.type-num {
+  font-size: 10px; color: var(--accent); letter-spacing: 2px;
+  font-weight: 700; margin-bottom: 8px; display: block;
+}
+.type-title { font-size: 15px; font-weight: 700; color: var(--text-light); margin-bottom: 6px; }
+.type-desc { font-size: 12px; color: var(--text-mid); line-height: 1.6; }
+
+/* ── Locations ── */
+#collab-locations {
+  background: var(--bg-dark);
+  border-bottom: 1px solid rgba(232,223,200,0.06);
+}
+.locations-list { margin-top: 20px; display: flex; flex-direction: column; gap: 0; }
+.location-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(232,223,200,0.06);
+}
+.location-item:last-child { border-bottom: none; }
+.location-flag { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.location-body { display: flex; flex-direction: column; gap: 3px; }
+.location-country { font-size: 10px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; }
+.location-city { font-size: 16px; font-weight: 700; color: var(--text-light); }
+.location-note { font-size: 12px; color: var(--text-mid); }
+
+/* ── Contact ── */
+#collab-contact {
+  background: var(--bg-mid);
+  border-bottom: 1px solid rgba(232,223,200,0.06);
+}
+.contact-box {
+  background: var(--bg-light);
+  border: 1px solid rgba(232,223,200,0.08);
+  border-radius: 14px; padding: 32px 28px;
+}
+.contact-title { font-size: 18px; font-weight: 700; color: var(--text-light); margin-bottom: 6px; }
+.contact-desc { font-size: 13px; color: var(--text-mid); margin-bottom: 24px; line-height: 1.7; }
+.contact-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.contact-btn {
+  display: inline-flex; flex-direction: column; gap: 3px;
+  padding: 12px 20px; border-radius: 8px;
+  background: rgba(232,223,200,0.06);
+  border: 1px solid rgba(232,223,200,0.15);
+  text-decoration: none; transition: background 0.2s;
+  min-width: 140px;
+}
+.contact-btn:hover { background: rgba(232,223,200,0.12); }
+.contact-btn-label { font-size: 9px; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
+.contact-btn-value { font-size: 13px; font-weight: 600; color: var(--text-light); }
+
+/* ── Footer ── */
+#collab-footer {
+  background: var(--bg-dark);
+  padding: 40px 32px; text-align: center;
+  border-top: 1px solid rgba(232,223,200,0.06);
+}
+.footer-name { font-size: 22px; font-weight: 900; color: var(--text-light); margin-bottom: 4px; }
+.footer-handle { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 12px; }
+.footer-sub { font-size: 10px; color: rgba(232,223,200,0.2); letter-spacing: 3px; }
+
+/* ── RWD ── */
+/* ── Back Button ── */
+.ch-back-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border-radius: 3px;
+  border: 1px solid rgba(232,223,200,0.3);
+  color: var(--accent); font-size: 11px; letter-spacing: 2px;
+  font-weight: 700; text-decoration: none;
+  transition: all 0.2s; white-space: nowrap;
+}
+.ch-back-btn:hover {
+  background: rgba(232,223,200,0.08);
+  border-color: rgba(232,223,200,0.55);
+  color: var(--text-light);
+}
+
+/* ── Cases Grid（對齊主站規格）── */
+#collab-cases { background: var(--bg-light); border-bottom: 1px solid rgba(232,223,200,0.06); }
+.work-card { position:relative; overflow:hidden; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; }
+.work-card::after {
+  content: '';
+  position: absolute; top: 8px; right: 8px; width: 22px; height: 22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='7' fill='white' opacity='.92'/%3E%3Cpolygon points='12,10 24,16 12,22' fill='%23444'/%3E%3C/svg%3E");
+  background-size: contain; background-repeat: no-repeat;
+  pointer-events: none; z-index: 2;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7));
+}
+.work-card .overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
+  opacity:1; transition:background 0.25s;
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end;
+  padding:14px;
+}
+.work-card:hover .overlay { background:rgba(0,0,0,0.82); }
+.view-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(18,18,18,0.72); border-radius: 20px;
+  padding: 3px 8px; font-size: 11px; font-weight: 600;
+  color: #fff; backdrop-filter: blur(4px);
+}
+
+/* ── Back to Top ── */
+#back-to-top {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--accent-deep); color: #fff; border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+  pointer-events: none; z-index: 999;
+}
+#back-to-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { background: var(--accent); }
+
+/* ── Hero top padding (clear fixed ≡ button) ── */
+#collab-hero .section { padding-top: 72px; }
+
+/* ── Nav Trigger ── */
+#collab-nav-trigger {
+  position: fixed; top: 20px; right: 20px; z-index: 9000;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(232,223,200,0.08); border: 1px solid rgba(232,223,200,0.18);
+  color: var(--accent); font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+#collab-nav-trigger:hover { background: rgba(232,223,200,0.16); }
+/* ── Side Nav ── */
+#cn-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 9001; opacity: 0; transition: opacity 0.3s;
+}
+#cn-overlay.open { opacity: 1; }
+#cn-nav {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+  background: #111111; z-index: 9002;
+  transform: translateX(100%); transition: transform 0.32s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column;
+  border-left: 1px solid rgba(232,223,200,0.08);
+}
+#cn-nav.open { transform: translateX(0); }
+.cn-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 20px 18px;
+  border-bottom: 1px solid rgba(232,223,200,0.08);
+}
+.cn-title { font-size: 15px; font-weight: 700; color: var(--accent); }
+.cn-close {
+  background: none; border: none; color: rgba(232,223,200,0.35);
+  font-size: 22px; cursor: pointer; line-height: 1; padding: 2px;
+  transition: color 0.15s;
+}
+.cn-close:hover { color: var(--accent); }
+.cn-items { flex: 1; overflow-y: auto; }
+.cn-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; cursor: pointer;
+  border-bottom: 1px solid rgba(232,223,200,0.05);
+  transition: background 0.15s; text-decoration: none;
+}
+.cn-item:hover { background: rgba(232,223,200,0.04); }
+.cn-item.accent .cn-item-title { color: var(--accent); }
+.cn-item-left { display: flex; flex-direction: column; gap: 3px; }
+.cn-item-title { font-size: 15px; font-weight: 600; color: var(--text-light); }
+.cn-item-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.3px; }
+.cn-arrow { color: rgba(232,223,200,0.25); font-size: 11px; flex-shrink: 0; }
+.cn-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(232,223,200,0.08);
+  font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px;
+}
+
+@media (max-width: 640px) {
+  .section, .section-sm { padding: 44px 20px; }
+  .stats-row { flex-direction: column; }
+  .stat-sub { border-right: none; border-bottom: 1px solid rgba(232,223,200,0.06); }
+  .stat-sub:last-child { border-bottom: none; }
+  .types-grid { grid-template-columns: 1fr; }
+  .contact-btns { flex-direction: column; }
+  .contact-btn { min-width: unset; }
+  #collab-footer { padding: 32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部">↑</button>
+<button id="collab-nav-trigger" onclick="openCollabNav()" aria-label="選單">≡</button>
+
+<!-- ① Hero（合併版） -->
+<div id="collab-hero">
+  <div class="section">
+    <span class="eyebrow">Brand Collaboration &nbsp;·&nbsp; 2026</span>
+    <div class="hero-divider"></div>
+    <h1 class="hero-main-title">與<em>小西亞的咿</em>合作</h1>
+    <p class="hero-sub">"讓人感受到，不只是看到"</p>
+    <p class="hero-desc">從台北巷弄到海外旅途，用真實的視角與原創內容連結品牌與受眾。<br>美食探店・旅遊紀錄・即時內容創作</p>
+    <div class="hero-tags">
+      <span class="hero-tag">美食探店</span>
+      <span class="hero-tag">雙人旅行</span>
+<span class="hero-tag">FamilyMart 第四屆品牌大使</span>
+    </div>
+  </div>
+</div>
+
+<!-- ③ Stats -->
+<div id="collab-stats-section">
+  <div class="section">
+    <span class="eyebrow">Data Highlights</span>
+    <h2 class="section-title" style="margin-bottom:20px;">數據亮點</h2>
+    <div class="stats-container">
+      <div class="stat-main">
+        <div class="stat-main-num">111<span class="stat-main-unit">萬</span></div>
+        <div class="stat-main-desc">單支最高廣告觸及</div>
+        <div class="stat-main-note">商家投廣後優化紀錄</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-sub">
+          <div class="stat-sub-num">2,100<span class="stat-sub-unit">+</span></div>
+          <div class="stat-sub-desc">IG 粉絲</div>
+          <div class="stat-sub-note">持續成長中</div>
+        </div>
+        <div class="stat-sub">
+          <div class="stat-sub-num">4,000<span class="stat-sub-unit">+</span></div>
+          <div class="stat-sub-desc">小紅書粉絲</div>
+          <div class="stat-sub-note">追 34 粉絲</div>
+        </div>
+        <div class="stat-sub">
+          <div class="stat-sub-num">5<span class="stat-sub-unit">+</span></div>
+          <div class="stat-sub-desc">互惠合作年度成員</div>
+          <div class="stat-sub-note">2025 → 2026 上半年</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cases -->
+<div id="collab-cases" style="background:var(--bg-light);border-bottom:1px solid rgba(232,223,200,0.06);">
+  <div style="max-width:558px;margin:0 auto;padding:52px 24px;">
+    <span class="eyebrow">Case Studies</span>
+    <h2 class="section-title" style="margin-bottom:20px;">合作案例</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);">
+      <a href="https://www.instagram.com/reel/DV41EB2Ege7/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_01.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>111萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWDYzt1kdtK/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_02.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>54.2萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DOUy84VEqp1/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_03.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>13.1萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DSW2qcsEYAO/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_04.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>5萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DRUPk5QEoCN/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_05.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>2萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DXoc3x0ETY2/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_06.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>1萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYRvhNgROan/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_07.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWdEbe7Ed_7/" target="_blank" class="work-card" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_08.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ④ Collab Types -->
+<div id="collab-types">
+  <div class="section">
+    <span class="eyebrow">Collaboration Types</span>
+    <h2 class="section-title" style="margin-bottom:20px;">合作方式</h2>
+    <div class="types-grid">
+      <div class="type-card">
+        <span class="type-num">01</span>
+        <div class="type-title">互惠合作</div>
+        <div class="type-desc">餐廳/品牌提供待體驗，製作專屬 Reels，可授權廣告素材</div>
+      </div>
+      <div class="type-card">
+        <span class="type-num">02</span>
+        <div class="type-title">現金酬勞合作</div>
+        <div class="type-desc">產品置入、品牌大使、即時面膜帶貨</div>
+      </div>
+      <div class="type-card">
+        <span class="type-num">03</span>
+        <div class="type-title">廣告素材授權</div>
+        <div class="type-desc">提供優惠友善貼文，最高觸及 111 萬次</div>
+      </div>
+      <div class="type-card">
+        <span class="type-num">04</span>
+        <div class="type-title">旅遊 / 住宿合作</div>
+        <div class="type-desc">海外行程期間業配，住宿、餐廳直約</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials -->
+<div id="collab-testimonials" style="background:var(--bg-dark);border-bottom:1px solid rgba(232,223,200,0.06);">
+  <div class="section">
+    <span class="eyebrow">Client Testimonials</span>
+    <h2 class="section-title" style="margin-bottom:10px;">業主口碑</h2>
+    <p style="font-size:12px;color:var(--text-muted);line-height:1.7;margin-bottom:28px;">來自合作品牌與業主的真實回饋與好評。</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+      <div style="border:1px dashed rgba(232,223,200,0.12);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;background:rgba(232,223,200,0.02);">
+        <span style="font-size:10px;letter-spacing:3px;color:var(--text-muted);">COMING SOON</span>
+      </div>
+      <div style="border:1px dashed rgba(232,223,200,0.12);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;background:rgba(232,223,200,0.02);">
+        <span style="font-size:10px;letter-spacing:3px;color:var(--text-muted);">COMING SOON</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ Locations -->
+<div id="collab-locations">
+  <div class="section">
+    <span class="eyebrow">Key Locations</span>
+    <h2 class="section-title" style="margin-bottom:20px;">重要地點</h2>
+    <div class="locations-list">
+      <div class="location-item">
+        <span class="location-flag">🇹🇼</span>
+        <div class="location-body">
+          <span class="location-country">Taiwan</span>
+          <span class="location-city">台北・新北・台南・高雄</span>
+          <span class="location-note">互惠合作為主</span>
+        </div>
+      </div>
+      <div class="location-item">
+        <span class="location-flag">🇯🇵</span>
+        <div class="location-body">
+          <span class="location-country">Japan</span>
+          <span class="location-city">大阪・京都</span>
+          <span class="location-note">自費探訪、真實推薦</span>
+        </div>
+      </div>
+      <div class="location-item">
+        <span class="location-flag">🇰🇷</span>
+        <div class="location-body">
+          <span class="location-country">Korea</span>
+          <span class="location-city">首爾・釜山</span>
+          <span class="location-note">雙城深度紀錄</span>
+        </div>
+      </div>
+      <div class="location-item">
+        <span class="location-flag">🇲🇾</span>
+        <div class="location-body">
+          <span class="location-country">Malaysia</span>
+          <span class="location-city">檳城</span>
+          <span class="location-note">在地美食和風向</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ Contact -->
+<div id="collab-contact">
+  <div class="section">
+    <div class="contact-box">
+      <div class="contact-title">洽談合作</div>
+      <div class="contact-desc">歡迎 IG DM 或小紅書私訊，附上品牌簡介與合作需求</div>
+      <div class="contact-btns">
+        <a href="https://www.instagram.com/xiaoxiya._.foodie/" target="_blank" class="contact-btn">
+          <span class="contact-btn-label">Instagram DM</span>
+          <span class="contact-btn-value">@xiaoxiya._.foodie</span>
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/5e8f2b5a000000000100c5f6" target="_blank" class="contact-btn">
+          <span class="contact-btn-label">小紅書私訊</span>
+          <span class="contact-btn-value">小西亞的咿</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer id="collab-footer">
+  <div class="footer-name">小西亞<em>的</em>咿</div>
+  <div class="footer-handle">@xiaoxiya._.foodie</div>
+  <div class="footer-sub">2026 &nbsp;·&nbsp; 美食 旅行 生活</div>
+</footer>
+
+<!-- Side Nav Overlay -->
+<div id="cn-overlay" onclick="closeCollabNav()"></div>
+
+<!-- Side Nav Panel -->
+<div id="cn-nav">
+  <div class="cn-header">
+    <span class="cn-title">小西亞的咿</span>
+    <button class="cn-close" onclick="closeCollabNav()">×</button>
+  </div>
+  <div class="cn-items">
+    <div class="cn-item accent" onclick="window.location.href='index.html'">
+      <div class="cn-item-left">
+        <span class="cn-item-title">返回主站</span>
+        <span class="cn-item-sub">小西亞的足跡</span>
+      </div>
+      <span class="cn-arrow">›</span>
+    </div>
+    <div class="cn-item" onclick="collabNavTo('collab-stats-section')">
+      <div class="cn-item-left">
+        <span class="cn-item-title">數據亮點</span>
+        <span class="cn-item-sub">觸及・粉絲・合作數</span>
+      </div>
+      <span class="cn-arrow">›</span>
+    </div>
+    <div class="cn-item" onclick="collabNavTo('collab-cases')">
+      <div class="cn-item-left">
+        <span class="cn-item-title">合作案例</span>
+        <span class="cn-item-sub">品牌合作內容精選</span>
+      </div>
+      <span class="cn-arrow">›</span>
+    </div>
+    <div class="cn-item" onclick="collabNavTo('collab-types')">
+      <div class="cn-item-left">
+        <span class="cn-item-title">合作方式</span>
+        <span class="cn-item-sub">互惠・現金・授權・旅遊</span>
+      </div>
+      <span class="cn-arrow">›</span>
+    </div>
+    <div class="cn-item" onclick="collabNavTo('collab-testimonials')">
+      <div class="cn-item-left">
+        <span class="cn-item-title">業主口碑</span>
+        <span class="cn-item-sub">合作業主好評回饋</span>
+      </div>
+      <span class="cn-arrow">›</span>
+    </div>
+    <div class="cn-item" onclick="collabNavTo('collab-contact')">
+      <div class="cn-item-left">
+        <span class="cn-item-title">洽談合作</span>
+        <span class="cn-item-sub">IG DM・小紅書私訊</span>
+      </div>
+      <span class="cn-arrow">›</span>
+    </div>
+  </div>
+  <div class="cn-footer">@xiaoxiya._.foodie</div>
+</div>
+
+<script>
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('back-to-top');
+  if (btn) btn.classList.toggle('show', window.scrollY > 300);
+});
+
+function openCollabNav() {
+  var overlay = document.getElementById('cn-overlay');
+  var nav = document.getElementById('cn-nav');
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() { overlay.classList.add('open'); nav.classList.add('open'); }, 10);
+}
+function closeCollabNav() {
+  var overlay = document.getElementById('cn-overlay');
+  var nav = document.getElementById('cn-nav');
+  overlay.classList.remove('open');
+  nav.classList.remove('open');
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 320);
+}
+function collabNavTo(id) {
+  closeCollabNav();
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 340);
+}
+</script>
+</body>
+</html>

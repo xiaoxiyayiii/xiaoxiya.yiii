@@ -1,0 +1,1307 @@
+<!--
+  ╔══════════════════════════════════════╗
+  ║  小西亞 Minisite — 內容替換清單      ║
+  ╠══════════════════════════════════════╣
+  ║  1. Hero 大頭照：將 🍜 換成         ║
+  ║     <img src="頭像.jpg">            ║
+  ║                                      ║
+  ║  2. About 形象照：搜尋「形象照佔位」  ║
+  ║     改為 <img src="你的照片.jpg">    ║
+  ║                                      ║
+  ║  3. 作品牆連結：搜尋 REPLACE_POST_   ║
+  ║     換成真實 IG 貼文網址              ║
+  ║                                      ║
+  ║  4. 合作 Email：搜尋 your@email.com  ║
+  ║     換成真實 email                    ║
+  ╚══════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小西亞｜美食 × 旅行 × 生活</title>
+<style>
+:root {
+  --bg-light:    #1a1a1a;
+  --bg-mid:      #141414;
+  --bg-dark:     #0a0a0a;
+  --accent:      #e8dfc8;
+  --accent-deep: #c4b898;
+  --text-dark:   #0a0a0a;
+  --text-mid:    rgba(232,223,200,0.65);
+  --text-muted:  rgba(232,223,200,0.4);
+  --text-light:  #ffffff;
+  --text-subtle: rgba(232,223,200,0.3);
+  --text-faint:  rgba(232,223,200,0.2);
+  --gap:         2px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Helvetica Neue', Arial, 'PingFang TC', sans-serif;
+  line-height: 1.6;
+}
+.eyebrow {
+  font-size: 10px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 10px; display: block;
+}
+.section-title {
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 900; line-height: 1.15;
+}
+em { color: var(--accent); font-style: normal; }
+.btn-primary {
+  background: var(--accent); color: #0a0a0a; border: none;
+  padding: 13px 30px; font-size: 13px; font-weight: 700;
+  letter-spacing: 1px; cursor: pointer; display: inline-block;
+  text-decoration: none;
+}
+.btn-outline {
+  background: transparent; color: var(--text-light);
+  border: 1px solid rgba(232,223,200,0.35);
+  padding: 13px 30px; font-size: 13px;
+  cursor: pointer; display: inline-block; text-decoration: none;
+}
+.btn-outline-dark {
+  background: transparent; color: var(--text-dark);
+  border: 1px solid rgba(0,0,0,0.35);
+  padding: 13px 30px; font-size: 13px;
+  cursor: pointer; display: inline-block; text-decoration: none;
+}
+.btn-primary:hover   { background: var(--accent-deep); }
+.btn-outline:hover   { background: rgba(232,223,200,0.1); }
+.btn-outline-dark:hover { background: rgba(0,0,0,0.08); }
+.btn-hairline {
+  background: var(--accent); color: #0a0a0a; border: none;
+  padding: 11px 26px; border-radius: 3px;
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+  cursor: pointer; display: inline-block; text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-hairline-outline {
+  background: transparent; color: rgba(232,223,200,0.7);
+  border: 1px solid rgba(232,223,200,0.25);
+  padding: 11px 26px; border-radius: 3px;
+  font-size: 11px; letter-spacing: 2.5px;
+  cursor: pointer; display: inline-block; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-hairline:hover         { background: var(--accent-deep); }
+.btn-hairline-outline:hover { background: rgba(232,223,200,0.08); border-color: rgba(232,223,200,0.4); }
+#back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-deep);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+  pointer-events: none;
+  z-index: 999;
+}
+#back-to-top.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#back-to-top:hover { background: var(--accent); }
+@keyframes fadeDown {
+  0%, 100% { opacity:0.4; transform:translateY(0); }
+  50%       { opacity:1;   transform:translateY(6px); }
+}
+.work-card { position:relative; overflow:hidden; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; }
+.work-card::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='7' fill='white' opacity='.92'/%3E%3Cpolygon points='12,10 24,16 12,22' fill='%23444'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7));
+}
+.work-card .overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
+  opacity:1; transition:background 0.25s;
+  display:flex; flex-direction:column;
+  align-items:flex-start; justify-content:flex-end;
+  padding:14px;
+}
+.work-card:hover .overlay { background:rgba(0,0,0,0.82); }
+.view-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(18,18,18,0.72);
+  border-radius: 20px;
+  padding: 4px 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(4px);
+}
+.works-tab { border:1px solid var(--accent); padding:7px 18px; border-radius:20px; font-size:12px; cursor:pointer; background:transparent; color:var(--text-mid); transition:all 0.2s; letter-spacing:1px; }
+.works-tab.active { background:var(--accent); border-color:var(--accent); color:#0a0a0a; font-weight:600; }
+.works-tab:hover:not(.active) { background:rgba(232,223,200,0.08); }
+.reveal { opacity:0; transform:translateY(22px); transition:opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.cat-grid > div {
+  transition: opacity 0.55s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+.cat-grid > div:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+}
+.brands-row > div {
+  transition: opacity 0.55s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.brands-row > div:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.13);
+}
+.ctype-tabs-row { display:flex; gap:0; margin-bottom:24px; border-bottom:1px solid rgba(232,223,200,0.1); }
+.ctype-tab { flex:1; background:none; border:none; padding:14px 0; font-size:13px; color:var(--text-muted); cursor:pointer; letter-spacing:1.5px; position:relative; transition:color 0.2s; text-align:center; }
+.ctype-tab::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:var(--accent); transform:scaleX(0); transition:transform 0.25s ease; }
+.ctype-tab.active { color:var(--text-light); font-weight:600; }
+.ctype-tab.active::after { transform:scaleX(1); }
+.ctype-tab:hover:not(.active) { color:rgba(232,223,200,0.6); }
+/* Travel itinerary cards */
+.travel-card { position:relative; overflow:hidden; cursor:pointer; display:block; aspect-ratio:9/16; background:#1a1a1a; }
+.travel-card img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.3s ease; }
+.travel-card:hover img { transform:scale(1.04); }
+.travel-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 55%); display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:14px; }
+.t-loc { font-size:10px; color:rgba(232,223,200,0.65); letter-spacing:2px; margin-bottom:4px; display:block; }
+.t-title { font-size:13px; font-weight:700; color:#fff; line-height:1.35; display:block; }
+/* Itinerary modal */
+#itinerary-modal { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.65); display:flex; align-items:flex-end; opacity:0; transition:opacity 0.3s ease; pointer-events:none; }
+#itinerary-modal.open { opacity:1; pointer-events:auto; }
+#itinerary-sheet { background:#111111; width:100%; max-height:90vh; border-radius:20px 20px 0 0; overflow-y:auto; padding:12px 24px 52px; transform:translateY(100%); transition:transform 0.35s cubic-bezier(0.32,0.72,0,1); position:relative; }
+#itinerary-modal.open #itinerary-sheet { transform:translateY(0); }
+.day-card { background:rgba(232,223,200,0.07); border-radius:12px; padding:16px 18px; margin-top:10px; }
+.day-card p { color:rgba(232,223,200,0.82); font-size:14px; line-height:1.75; margin:0; }
+.day-card p + p { margin-top:6px; color:rgba(232,223,200,0.55); font-size:13px; }
+.kr-tab { background:none; border:none; padding:4px 0; font-size:11px; color:var(--text-muted); cursor:pointer; letter-spacing:1.5px; position:relative; transition:color 0.2s; }
+.kr-tab::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:var(--accent-deep); transform:scaleX(0); transition:transform 0.2s ease; }
+.kr-tab.active { color:var(--accent-deep); font-weight:700; }
+.kr-tab.active::after { transform:scaleX(1); }
+.kr-tab:hover:not(.active) { color:var(--text-mid); }
+@media (max-width: 640px) {
+  /* Hero */
+  #hero { padding: 24px 20px 18px !important; }
+  .hero-inner { flex-direction: column !important; gap: 20px !important; }
+  .hero-inner > div:first-child { width: 110px !important; height: 110px !important; }
+  .hero-inner .hero-text { align-items: center !important; text-align: center !important; }
+  .hero-inner .hero-text h1 { text-align: center !important; }
+  .hero-inner .hero-text p { text-align: center !important; max-width: 100% !important; }
+  .hero-inner .hero-text > div { justify-content: center !important; }
+  /* Sections */
+  #categories { padding: 36px 16px !important; }
+  #works      { padding: 36px 16px !important; }
+  #brands     { padding: 32px 16px !important; }
+  #contact    { padding: 48px 20px !important; }
+  /* Grids */
+  .cat-grid      { grid-template-columns: repeat(2,1fr) !important; }
+  .works-grid    { grid-template-columns: repeat(3,1fr) !important; }
+  .cat-works-grid { grid-template-columns: repeat(3,1fr) !important; }
+}
+
+/* ── Nav Trigger ── */
+#nav-trigger {
+  position: fixed; top: 20px; right: 20px; z-index: 9000;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(232,223,200,0.08); border: 1px solid rgba(232,223,200,0.18);
+  color: var(--accent); font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+#nav-trigger:hover { background: rgba(232,223,200,0.16); }
+
+/* ── Side Nav ── */
+#side-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 9001; opacity: 0; transition: opacity 0.3s;
+}
+#side-overlay.open { opacity: 1; }
+
+#side-nav {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+  background: #111111; z-index: 9002;
+  transform: translateX(100%); transition: transform 0.32s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column;
+  border-left: 1px solid rgba(232,223,200,0.08);
+}
+#side-nav.open { transform: translateX(0); }
+
+.sn-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 20px 18px;
+  border-bottom: 1px solid rgba(232,223,200,0.08);
+}
+.sn-title { font-size: 15px; font-weight: 700; color: var(--accent); }
+.sn-close {
+  background: none; border: none; color: rgba(232,223,200,0.35);
+  font-size: 22px; cursor: pointer; line-height: 1; padding: 2px;
+  transition: color 0.15s;
+}
+.sn-close:hover { color: var(--accent); }
+
+.sn-items { flex: 1; overflow-y: auto; }
+
+.sn-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; cursor: pointer;
+  border-bottom: 1px solid rgba(232,223,200,0.05);
+  transition: background 0.15s; text-decoration: none;
+}
+.sn-item:hover { background: rgba(232,223,200,0.04); }
+.sn-item.accent .sn-item-title { color: var(--accent); }
+
+.sn-item-left { display: flex; flex-direction: column; gap: 3px; }
+.sn-item-title { font-size: 15px; font-weight: 600; color: var(--text-light); }
+.sn-item-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.3px; }
+.sn-arrow { color: rgba(232,223,200,0.25); font-size: 11px; flex-shrink: 0; }
+
+.sn-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(232,223,200,0.08);
+  font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px;
+}
+
+/* ── Brand Collab Stats ── */
+.collab-stats { display: flex; gap: 2px; flex-wrap: wrap; }
+.collab-stat {
+  flex: 1 1 130px; padding: 24px 20px;
+  background: var(--bg-dark);
+  border: 1px solid rgba(232,223,200,0.07);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.collab-stat-num { font-size: 28px; font-weight: 900; color: var(--accent); letter-spacing: -1px; line-height: 1; display: flex; align-items: baseline; gap: 3px; }
+.collab-stat-unit { font-size: 16px; color: rgba(232,223,200,0.45); font-weight: 400; }
+.collab-stat-desc { font-size: 12px; color: var(--text-mid); margin-top: 6px; }
+.collab-stat-note { font-size: 10px; color: var(--text-muted); letter-spacing: 0.5px; margin-top: 2px; }
+
+/* ── Admin Modal ── */
+#admin-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+  z-index: 9500; align-items: center; justify-content: center;
+}
+#admin-overlay.open { display: flex; }
+
+#admin-box {
+  width: 92%; max-width: 680px; max-height: 88vh;
+  background: #1c1410; border-radius: 16px;
+  overflow: hidden; display: flex; flex-direction: column;
+  border: 1px solid rgba(232,223,200,0.12);
+}
+.admin-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 20px 0;
+}
+.admin-hdr h3 { font-size: 16px; font-weight: 700; color: var(--text-light); }
+.admin-close {
+  background: none; border: none; color: rgba(232,223,200,0.4);
+  font-size: 22px; cursor: pointer; padding: 2px; transition: color 0.15s;
+}
+.admin-close:hover { color: var(--text-light); }
+
+#admin-login { padding: 40px 28px; text-align: center; }
+.admin-pw-input {
+  width: 100%; padding: 12px 16px;
+  background: rgba(232,223,200,0.06); border: 1px solid rgba(232,223,200,0.2);
+  border-radius: 8px; color: var(--text-light); font-size: 15px;
+  text-align: center; letter-spacing: 3px; margin: 16px 0 12px;
+  font-family: inherit;
+}
+.admin-pw-input:focus { outline: none; border-color: var(--accent); }
+.admin-pw-err { font-size: 12px; color: #e06060; margin-bottom: 10px; min-height: 18px; }
+
+.admin-tabs {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 16px 20px 0;
+}
+.admin-tab {
+  padding: 7px 16px; border-radius: 20px;
+  border: 1px solid rgba(232,223,200,0.2);
+  font-size: 12px; cursor: pointer;
+  background: none; color: var(--text-muted); transition: all 0.15s;
+}
+.admin-tab.active { background: var(--accent); color: #0a0a0a; font-weight: 700; border-color: var(--accent); }
+.admin-tab:not(.active):hover { color: var(--text-light); border-color: rgba(232,223,200,0.4); }
+
+.admin-body { flex: 1; overflow-y: auto; padding: 20px; }
+.admin-pane { display: none; }
+.admin-pane.active { display: block; }
+
+.admin-card-editor {
+  background: rgba(232,223,200,0.04); border: 1px solid rgba(232,223,200,0.1);
+  border-radius: 10px; padding: 16px; margin-bottom: 12px;
+}
+.admin-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.admin-field { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.admin-label { font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px; }
+.admin-input {
+  background: rgba(232,223,200,0.06); border: 1px solid rgba(232,223,200,0.15);
+  border-radius: 6px; padding: 9px 12px;
+  color: var(--text-light); font-size: 14px; width: 100%; font-family: inherit;
+}
+.admin-input:focus { outline: none; border-color: var(--accent); }
+.admin-save-btn {
+  width: 100%; padding: 13px;
+  background: var(--accent); color: #0a0a0a; border: none;
+  border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; margin-top: 6px; transition: background 0.2s;
+}
+.admin-save-btn:hover { background: var(--accent-deep); }
+.admin-coming { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 11px; letter-spacing: 3px; }
+</style>
+</head>
+<body>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部">↑</button>
+<button id="nav-trigger" onclick="openSideNav()" aria-label="選單">≡</button>
+
+<!-- ① HERO -->
+<section id="hero" style="
+  background: var(--bg-dark);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 36px 40px 28px;
+  position: relative; overflow: hidden;
+">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 50%, rgba(232,223,200,0.12) 0%, transparent 55%),radial-gradient(ellipse at 80% 20%, rgba(232,223,200,0.07) 0%, transparent 50%);"></div>
+
+  <!-- 左右分欄 -->
+  <div class="hero-inner" style="max-width:900px;width:100%;display:flex;gap:52px;align-items:center;position:relative;z-index:1;">
+
+    <!-- 左：圓形大頭照 -->
+    <div style="flex-shrink:0;width:180px;height:180px;position:relative;">
+      <!-- 外圈漸層裝飾環 -->
+      <div style="position:absolute;inset:-4px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-deep),rgba(232,223,200,0.3));"></div>
+      <!-- 白色間隔環 -->
+      <div style="position:absolute;inset:-1px;border-radius:50%;background:rgba(0,0,0,0.6);"></div>
+      <!-- 照片 -->
+      <div style="position:absolute;inset:3px;border-radius:50%;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+        <img src="images/IG大頭照.PNG" alt="小西亞" style="width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block;">
+      </div>
+    </div>
+
+    <!-- 右：文字內容 -->
+    <div class="hero-text" style="flex:1;display:flex;flex-direction:column;align-items:flex-start;">
+      <h1 style="font-size:clamp(38px,6vw,72px);font-weight:900;letter-spacing:-2px;line-height:1;color:var(--text-light);margin-bottom:10px;">小西亞的咿</h1>
+      <p style="font-size:16px;color:var(--accent);letter-spacing:4px;margin-bottom:18px;">美食 &nbsp;·&nbsp; 旅行 &nbsp;·&nbsp; 生活</p>
+
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;">
+        <span onclick="goToWorks('tw')" style="background:rgba(232,223,200,0.08);border:1px solid rgba(232,223,200,0.15);padding:4px 11px;border-radius:20px;font-size:11px;color:#bbb;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(232,223,200,0.2)'" onmouseout="this.style.background='rgba(232,223,200,0.08)'">🇹🇼 Taiwan</span>
+        <span onclick="goToWorks('jp')" style="background:rgba(232,223,200,0.08);border:1px solid rgba(232,223,200,0.15);padding:4px 11px;border-radius:20px;font-size:11px;color:#bbb;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(232,223,200,0.2)'" onmouseout="this.style.background='rgba(232,223,200,0.08)'">🇯🇵 Japan</span>
+        <span onclick="goToWorks('kr')" style="background:rgba(232,223,200,0.08);border:1px solid rgba(232,223,200,0.15);padding:4px 11px;border-radius:20px;font-size:11px;color:#bbb;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(232,223,200,0.2)'" onmouseout="this.style.background='rgba(232,223,200,0.08)'">🇰🇷 Korea</span>
+        <span onclick="goToWorks('my')" style="background:rgba(232,223,200,0.08);border:1px solid rgba(232,223,200,0.15);padding:4px 11px;border-radius:20px;font-size:11px;color:#bbb;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(232,223,200,0.2)'" onmouseout="this.style.background='rgba(232,223,200,0.08)'">🇲🇾 Malaysia</span>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;">
+        <a href="https://www.instagram.com/xiaoxiya._.foodie/" target="_blank" class="btn-hairline">合作邀約</a>
+        <a href="https://www.instagram.com/xiaoxiya._.foodie/" target="_blank" class="btn-hairline-outline">追蹤 IG</a>
+      </div>
+
+      <p style="color:rgba(232,223,200,0.7);line-height:1.85;font-size:15px;margin-bottom:8px;max-width:420px;">
+        我是小西亞，從台北巷弄的咖啡廳到京都百年老屋，用鏡頭和文字帶你發現那些藏在日常裡的美好。
+      </p>
+
+    </div>
+  </div>
+
+  <p onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})" style="margin-top:28px;font-size:10px;color:rgba(232,223,200,1);letter-spacing:3px;position:relative;z-index:1;animation:fadeDown 2s ease infinite;cursor:pointer;">↓ &nbsp; SCROLL</p>
+</section>
+
+<!-- ④ WORKS -->
+<section id="works" style="background:var(--bg-mid);padding:52px 24px;">
+  <div style="max-width:558px;margin:0 auto;">
+    <span class="eyebrow">My Footprints</span>
+    <h2 class="section-title" style="margin-bottom:24px;">小西亞的足跡</h2>
+    <div class="ctype-tabs-row">
+      <button class="ctype-tab active" data-ctype="explore" onclick="switchContentType('explore')">Reels</button>
+      <button class="ctype-tab" data-ctype="travel" onclick="switchContentType('travel')">旅遊行程</button>
+      <button class="ctype-tab" data-ctype="group" onclick="switchContentType('group')">活動團購</button>
+    </div>
+    <div id="ctype-explore">
+    <div style="margin-bottom:20px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="works-tab active" data-tab="all" onclick="filterWorks('all')">全部</button>
+        <button class="works-tab" data-tab="featured" onclick="filterWorks('featured')">⭐ 精選</button>
+        <button class="works-tab" data-tab="tw" onclick="filterWorks('tw')">🇹🇼 台灣</button>
+        <button class="works-tab" data-tab="jp" onclick="filterWorks('jp')">🇯🇵 日本</button>
+        <button class="works-tab" data-tab="kr" onclick="filterWorks('kr')">🇰🇷 韓國</button>
+        <button class="works-tab" data-tab="my" onclick="filterWorks('my')">🇲🇾 馬來西亞</button>
+      </div>
+      <!-- 韓國城市子頁籤 -->
+      <div id="kr-subtabs" style="display:none;align-items:center;gap:20px;padding:14px 0 0;">
+        <div style="display:flex;align-items:center;gap:18px;border-left:2px solid var(--accent);padding-left:14px;">
+          <span style="font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;flex-shrink:0;">城市</span>
+          <button class="kr-tab active" data-kr-tab="all" onclick="filterKorea('all')">全部</button>
+          <button class="kr-tab" data-kr-tab="seoul" onclick="filterKorea('seoul')">首爾</button>
+          <button class="kr-tab" data-kr-tab="busan" onclick="filterKorea('busan')">釜山</button>
+        </div>
+      </div>
+    </div>
+    <div class="works-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:16px;">
+      <a href="https://www.instagram.com/reel/DV41EB2Ege7/" target="_blank" class="work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_01.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>111萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWDYzt1kdtK/" target="_blank" class="work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_02.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>54.2萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DOUy84VEqp1/" target="_blank" class="work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_03.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>13.1萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DSW2qcsEYAO/" target="_blank" class="work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_04.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>5萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DRUPk5QEoCN/" target="_blank" class="work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_05.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>2萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DXoc3x0ETY2/" target="_blank" class="work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_06.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>1萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYRvhNgROan/" target="_blank" class="work-card" data-region="tw" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_07.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWdEbe7Ed_7/" target="_blank" class="work-card" data-region="tw" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_08.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DP8JA7pESfP/" target="_blank" class="work-card" data-region="jp" data-category="cafe" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_01.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>1.6萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DSj-f93EZ_B/" target="_blank" class="work-card" data-region="jp" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DP_F6aZEfIu/" target="_blank" class="work-card" data-region="jp" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_03.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DRqv7GQEWx5/" target="_blank" class="work-card" data-region="jp" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_04.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DR6P7QokZ9X/" target="_blank" class="work-card" data-region="jp" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_05.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DSr5Fa7kRr6/" target="_blank" class="work-card" data-region="jp" data-category="hotel" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_06.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DQJ9z-5Evuh/" target="_blank" class="work-card" data-region="jp" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_07.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DQRvmrlEk__/" target="_blank" class="work-card" data-region="jp" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_08.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DR9kRSUEX7K/" target="_blank" class="work-card" data-region="jp" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_09.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYr8QVuS5g5/" target="_blank" class="work-card" data-region="kr" data-city="seoul" data-category="hotel" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_seoul_01.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYzmmszS_JD/" target="_blank" class="work-card" data-region="kr" data-city="seoul" data-category="cafe" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_seoul_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DNdhZDEJRye/" target="_blank" class="work-card" data-region="kr" data-city="busan" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_01.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DMjh-b1Jyz-/" target="_blank" class="work-card" data-region="kr" data-city="busan" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DNKO1PSpQ2R/" target="_blank" class="work-card" data-region="kr" data-city="busan" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_03.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DNa91u9pSQ5/" target="_blank" class="work-card" data-region="kr" data-city="busan" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_04.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DOi4teykg_g/" target="_blank" class="work-card" data-region="kr" data-city="busan" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_05.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DVQ8-G1EfAW/" target="_blank" class="work-card" data-region="my" data-category="hidden" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_01.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DVTKXs_kYjW/" target="_blank" class="work-card" data-region="my" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWLBykWEUKs/" target="_blank" class="work-card" data-region="my" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_03.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWx3O7IEbOU/" target="_blank" class="work-card" data-region="my" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_04.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DViw04WkQaR/" target="_blank" class="work-card" data-region="my" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_05.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+    </div>
+    <div id="works-more-wrap" style="display:none;margin:20px 0 0;">
+      <button id="works-more-btn" onclick="toggleMoreWorks()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;width:100%;gap:14px;padding:4px 0;">
+        <span style="flex:1;height:1px;background:var(--accent-deep);opacity:0.4;display:block;"></span>
+        <span id="works-chevron" style="width:30px;height:30px;background:var(--accent-deep);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;transition:transform 0.35s ease;flex-shrink:0;">
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span style="flex:1;height:1px;background:var(--accent-deep);opacity:0.4;display:block;"></span>
+      </button>
+    </div>
+    </div><!-- /ctype-explore -->
+    <div id="ctype-travel" style="display:none;">
+      <div style="margin-bottom:16px;margin-top:4px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="works-tab" data-travel-tab="all" onclick="filterTravel('all')">全部</button>
+          <button class="works-tab" data-travel-tab="jp" onclick="filterTravel('jp')">🇯🇵 日本</button>
+          <button class="works-tab active" data-travel-tab="kr" onclick="filterTravel('kr')">🇰🇷 韓國</button>
+          <button class="works-tab" data-travel-tab="my" onclick="filterTravel('my')">🇲🇾 馬來西亞</button>
+        </div>
+      </div>
+      <div id="travel-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:16px;"></div>
+    </div>
+    <div id="ctype-group" style="display:none;padding:52px 0;text-align:center;">
+      <p style="font-size:10px;letter-spacing:4px;color:var(--text-muted);">COMING SOON</p>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ CATEGORY WORKS -->
+<section id="cat-works" style="background:var(--bg-light);padding:52px 24px;border-top:1px solid rgba(232,223,200,0.08);">
+  <div style="max-width:558px;margin:0 auto;">
+    <span class="eyebrow">By Category</span>
+    <h2 class="section-title" style="margin-bottom:20px;">類別探索</h2>
+    <div style="margin-bottom:20px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="works-tab active" data-cat-tab="all" onclick="filterCategory('all')">全部</button>
+        <button class="works-tab" data-cat-tab="food" onclick="filterCategory('food')">🍜 美食</button>
+        <button class="works-tab" data-cat-tab="cafe" onclick="filterCategory('cafe')">☕ 咖啡廳</button>
+        <button class="works-tab" data-cat-tab="hidden" onclick="filterCategory('hidden')">📍 私藏景點</button>
+        <button class="works-tab" data-cat-tab="hotel" onclick="filterCategory('hotel')">🏨 住宿推薦</button>
+      </div>
+    </div>
+    <div class="cat-works-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:16px;">
+      <a href="https://www.instagram.com/reel/DV41EB2Ege7/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_01.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>111萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWDYzt1kdtK/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_02.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>54.2萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DOUy84VEqp1/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_03.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>13.1萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DSW2qcsEYAO/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_04.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>5萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DRUPk5QEoCN/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_05.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>2萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DXoc3x0ETY2/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_06.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>1萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYRvhNgROan/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_07.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWdEbe7Ed_7/" target="_blank" class="work-card cat-work-card" data-region="tw" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/tw_08.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DP_F6aZEfIu/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_03.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DR6P7QokZ9X/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="food" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_05.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DP8JA7pESfP/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="cafe" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_01.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"><div class="view-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>1.6萬</div></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DSj-f93EZ_B/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DRqv7GQEWx5/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_04.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DSr5Fa7kRr6/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="hotel" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_06.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DQJ9z-5Evuh/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_07.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DQRvmrlEk__/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_08.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DR9kRSUEX7K/" target="_blank" class="work-card cat-work-card" data-region="jp" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/jp_09.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYr8QVuS5g5/" target="_blank" class="work-card cat-work-card" data-region="kr" data-city="seoul" data-category="hotel" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_seoul_01.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYzmmszS_JD/" target="_blank" class="work-card cat-work-card" data-region="kr" data-city="seoul" data-category="cafe" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_seoul_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DNdhZDEJRye/" target="_blank" class="work-card cat-work-card" data-region="kr" data-city="busan" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_01.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DMjh-b1Jyz-/" target="_blank" class="work-card cat-work-card" data-region="kr" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DNKO1PSpQ2R/" target="_blank" class="work-card cat-work-card" data-region="kr" data-city="busan" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_03.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DNa91u9pSQ5/" target="_blank" class="work-card cat-work-card" data-region="kr" data-city="busan" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_04.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DOi4teykg_g/" target="_blank" class="work-card cat-work-card" data-region="kr" data-city="busan" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/kr_busan_05.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DVQ8-G1EfAW/" target="_blank" class="work-card cat-work-card" data-region="my" data-category="hidden" data-featured="true" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_01.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DVTKXs_kYjW/" target="_blank" class="work-card cat-work-card" data-region="my" data-category="hidden" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_02.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWLBykWEUKs/" target="_blank" class="work-card cat-work-card" data-region="my" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_03.PNG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWx3O7IEbOU/" target="_blank" class="work-card cat-work-card" data-region="my" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_04.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/reel/DViw04WkQaR/" target="_blank" class="work-card cat-work-card" data-region="my" data-category="food" style="aspect-ratio:9/16;background:#c8b8a2;">
+        <img src="images/my_05.JPG" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="overlay"></div>
+      </a>
+    </div>
+    <div id="cat-more-wrap" style="display:none;margin:20px 0 0;">
+      <button id="cat-more-btn" onclick="toggleMoreCat()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;width:100%;gap:14px;padding:4px 0;">
+        <span style="flex:1;height:1px;background:var(--accent-deep);opacity:0.4;display:block;"></span>
+        <span id="cat-chevron" style="width:30px;height:30px;background:var(--accent-deep);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;transition:transform 0.35s ease;flex-shrink:0;">
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span style="flex:1;height:1px;background:var(--accent-deep);opacity:0.4;display:block;"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ③ CATEGORIES -->
+<section id="categories" style="background:var(--bg-mid);padding:52px 24px;border-top:1px solid rgba(232,223,200,0.08);">
+  <div style="max-width:558px;margin:0 auto;">
+    <span class="eyebrow">Content Categories</span>
+    <h2 class="section-title" style="color:var(--text-light);margin-bottom:28px;">我的內容涵蓋</h2>
+    <div class="cat-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);">
+      <div style="background:var(--bg-mid);padding:24px 16px;border-top:3px solid var(--accent);">
+        <span style="font-size:24px;display:block;margin-bottom:10px;">🍜</span>
+        <div style="font-size:14px;font-weight:700;color:var(--text-light);margin-bottom:4px;">台灣美食</div>
+        <div style="font-size:11px;color:var(--text-muted);">台北・台南・高雄</div>
+      </div>
+      <div style="background:var(--bg-mid);padding:24px 16px;border-top:3px solid var(--accent-deep);">
+        <span style="font-size:24px;display:block;margin-bottom:10px;">✈️</span>
+        <div style="font-size:14px;font-weight:700;color:var(--text-light);margin-bottom:4px;">海外旅遊</div>
+        <div style="font-size:11px;color:var(--text-muted);">韓國・日本・馬來西亞</div>
+      </div>
+      <div style="background:var(--bg-mid);padding:24px 16px;border-top:3px solid var(--accent-deep);">
+        <span style="font-size:24px;display:block;margin-bottom:10px;">🏨</span>
+        <div style="font-size:14px;font-weight:700;color:var(--text-light);margin-bottom:4px;">住宿體驗</div>
+        <div style="font-size:11px;color:var(--text-muted);">飯店・民宿・特色住所</div>
+      </div>
+      <div style="background:var(--bg-mid);padding:24px 16px;border-top:3px solid var(--accent-deep);">
+        <span style="font-size:24px;display:block;margin-bottom:10px;">☕</span>
+        <div style="font-size:14px;font-weight:700;color:var(--text-light);margin-bottom:4px;">咖啡廳巡禮</div>
+        <div style="font-size:11px;color:var(--text-muted);">質感・隱藏版・必打卡</div>
+      </div>
+      <div style="background:var(--bg-mid);padding:24px 16px;border-top:3px solid var(--accent);">
+        <span style="font-size:24px;display:block;margin-bottom:10px;">🤝</span>
+        <div style="font-size:14px;font-weight:700;color:var(--text-light);margin-bottom:4px;">品牌合作</div>
+        <div style="font-size:11px;color:var(--text-muted);">業配・開箱・活動</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ CONTACT -->
+<section id="contact" style="background:var(--bg-dark);padding:28px 24px;text-align:center;">
+  <div style="max-width:600px;margin:0 auto;">
+    <span class="eyebrow">Contact</span>
+    <h2 style="font-size:clamp(20px,3.5vw,30px);font-weight:900;color:var(--text-light);line-height:1.15;margin-bottom:8px;">
+      一起創造<em>有溫度的內容</em>
+    </h2>
+    <p style="color:var(--text-subtle);font-size:12px;line-height:1.7;margin-bottom:14px;">
+      餐廳探訪・旅遊體驗・產品開箱・品牌活動，歡迎聯繫討論合作。
+    </p>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://www.instagram.com/xiaoxiya._.foodie/" target="_blank" class="btn-hairline">📩 發送合作邀請</a>
+    </div>
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(232,223,200,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <p style="font-size:10px;color:var(--text-faint);letter-spacing:2px;">
+        @xiaoxiya._.foodie &nbsp;·&nbsp; 美食 × 旅行 × 生活
+      </p>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <div id="visitor-count" style="font-size:18px;font-weight:900;color:var(--accent);letter-spacing:-1px;line-height:1;">—</div>
+        <div style="font-size:9px;color:var(--text-faint);letter-spacing:2px;text-transform:uppercase;">累積瀏覽人次</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+// Firebase 瀏覽人次計數
+// 設定完 Firebase 後把 FIREBASE_URL 換成你的資料庫網址
+var FIREBASE_URL = 'https://xiaoxiyayiii-8101f-default-rtdb.asia-southeast1.firebasedatabase.app/xiaoxiya/pageviews.json';
+
+if (window.location.protocol !== 'file:') {
+  fetch(FIREBASE_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(count) {
+      var newCount = (count || 0) + 1;
+      fetch(FIREBASE_URL, { method: 'PUT', body: JSON.stringify(newCount) });
+      var el = document.getElementById('visitor-count');
+      if (el) el.textContent = Number(newCount).toLocaleString('zh-TW');
+    })
+    .catch(function() {});
+}
+
+var currentRegion = 'all';
+var currentKrCity = 'all';
+var _worksVisible = [];
+var _worksExpanded = false;
+var WORKS_LIMIT = 6;
+
+function applyFilter() {
+  _worksExpanded = false;
+  _worksVisible = [];
+  document.querySelectorAll('#works .work-card').forEach(function(card) {
+    var show = false;
+    if (currentRegion === 'all') {
+      show = true;
+    } else if (currentRegion === 'featured') {
+      show = card.dataset.featured === 'true';
+    } else {
+      var regionMatch = card.dataset.region === currentRegion;
+      var cityMatch = (currentRegion !== 'kr') || (currentKrCity === 'all') || (card.dataset.city === currentKrCity);
+      show = regionMatch && cityMatch;
+    }
+    if (show) { _worksVisible.push(card); }
+    else { card.style.display = 'none'; }
+  });
+  _worksVisible.forEach(function(card, i) {
+    card.style.display = i < WORKS_LIMIT ? '' : 'none';
+  });
+  var wrap = document.getElementById('works-more-wrap');
+  var btn = document.getElementById('works-more-btn');
+  var extra = _worksVisible.length - WORKS_LIMIT;
+  if (wrap) wrap.style.display = extra > 0 ? '' : 'none';
+}
+
+function toggleMoreWorks() {
+  _worksExpanded = !_worksExpanded;
+  var chevron = document.getElementById('works-chevron');
+  _worksVisible.forEach(function(card, i) {
+    card.style.display = (_worksExpanded || i < WORKS_LIMIT) ? '' : 'none';
+  });
+  if (chevron) chevron.style.transform = _worksExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+}
+
+function filterWorks(region) {
+  currentRegion = region;
+  currentKrCity = 'all';
+  var krSubtabs = document.getElementById('kr-subtabs');
+  krSubtabs.style.display = (region === 'kr') ? 'flex' : 'none';
+  document.querySelectorAll('.kr-tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.krTab === 'all');
+  });
+  applyFilter();
+  document.querySelectorAll('.works-tab').forEach(function(tab) {
+    tab.classList.toggle('active', tab.dataset.tab === region);
+  });
+}
+
+function filterKorea(city) {
+  currentKrCity = city;
+  applyFilter();
+  document.querySelectorAll('.kr-tab').forEach(function(tab) {
+    tab.classList.toggle('active', tab.dataset.krTab === city);
+  });
+}
+
+// Category filter
+var _catVisible = [];
+var _catExpanded = false;
+var CAT_LIMIT = 6;
+
+function filterCategory(cat) {
+  _catExpanded = false;
+  _catVisible = [];
+  document.querySelectorAll('#cat-works .cat-work-card').forEach(function(card) {
+    var show = (cat === 'all' || card.dataset.category === cat);
+    if (show) { _catVisible.push(card); }
+    else { card.style.display = 'none'; }
+  });
+  _catVisible.forEach(function(card, i) {
+    card.style.display = i < CAT_LIMIT ? '' : 'none';
+  });
+  var wrap = document.getElementById('cat-more-wrap');
+  var chevron = document.getElementById('cat-chevron');
+  var extra = _catVisible.length - CAT_LIMIT;
+  if (wrap) wrap.style.display = extra > 0 ? '' : 'none';
+  if (chevron) chevron.style.transform = 'rotate(0deg)';
+  document.querySelectorAll('[data-cat-tab]').forEach(function(tab) {
+    tab.classList.toggle('active', tab.dataset.catTab === cat);
+  });
+}
+
+function toggleMoreCat() {
+  _catExpanded = !_catExpanded;
+  var chevron = document.getElementById('cat-chevron');
+  _catVisible.forEach(function(card, i) {
+    card.style.display = (_catExpanded || i < CAT_LIMIT) ? '' : 'none';
+  });
+  if (chevron) chevron.style.transform = _catExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+}
+
+// 主分頁切換：探店筆記 / 旅遊行程 / 活動團購
+function switchContentType(type) {
+  ['explore', 'travel', 'group'].forEach(function(t) {
+    var el = document.getElementById('ctype-' + t);
+    if (el) el.style.display = t === type ? '' : 'none';
+  });
+  // 類別探索區塊跟著探店筆記一起顯示/隱藏
+  var catSection = document.getElementById('cat-works');
+  if (catSection) catSection.style.display = type === 'explore' ? '' : 'none';
+  document.querySelectorAll('.ctype-tab').forEach(function(tab) {
+    tab.classList.toggle('active', tab.dataset.ctype === type);
+  });
+}
+
+// Hero badge → scroll to works + filter
+function goToWorks(region) {
+  filterWorks(region);
+  document.getElementById('works').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Back to top
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('back-to-top');
+  if (window.scrollY > 300) {
+    btn.classList.add('show');
+  } else {
+    btn.classList.remove('show');
+  }
+});
+
+// Scroll reveal
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  ['.cat-grid', '.brands-row'].forEach(function(sel) {
+    var parent = document.querySelector(sel);
+    if (!parent) return;
+    Array.from(parent.children).forEach(function(el, i) {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i * 0.1) + 's';
+      observer.observe(el);
+    });
+  });
+})();
+
+// ── 旅遊行程資料 ────────────────────────────────────────
+var ITINERARIES = [
+  {
+    id: 'busan-5d',
+    region: 'kr',
+    image: 'images/travel_kr_01.jpeg',
+    loc: '🇰🇷 釜山',
+    cardTitle: '5天4夜｜釜山懶人包',
+    location: '釜山',
+    title: '5天4夜｜釜山懶人包',
+    note: null,
+    igLink: null,
+    days: [
+      { label: 'DAY 1｜抵達釜山', lines: ['金浦機場 → 市區 Check in → 晚餐廣安里｜[釜山宅](https://www.instagram.com/reel/DMjh-b1Jyz-/)'] },
+      { label: 'DAY 2｜', lines: ['早餐廣安里｜[WORKING HOLIDAY](https://www.instagram.com/reel/DNKO1PSpQ2R/) → 白淺灘文化村 → 南浦洞｜OliviaYoung → 晚餐廣安里｜[나사리식당 광안점](https://www.instagram.com/reel/DMmefONJ3lv/) → 廣安里｜Millac The Market'] },
+      { label: 'DAY 3｜', lines: ['早餐海雲台｜[EGG DROP](https://naver.me/FN747zwP) → 伴手禮[Busan BADA SAND](https://www.instagram.com/reel/DNa91u9pSQ5/) → 海理團路 → 下午茶 [Dongbaek Dessert Cafe](https://www.instagram.com/reel/DNa91u9pSQ5/) → 膠囊列車 → 海岸列車 → 晚餐 [돈독烤肉專門店](https://www.instagram.com/reel/DM0TDG8Jwoj/) → 廣安里｜[無人機表演](https://www.instagram.com/reel/DNxpVkiYsD8/) → 冬柏｜[Yacht holic 遊艇](https://www.instagram.com/reel/DOi4teykg_g/)'] },
+      { label: 'DAY 4｜', lines: ['松亭站｜[holi lounge](https://www.instagram.com/reel/DMkpXVzp7Md/) → 機張｜[SKYLINE LUGE](https://www.instagram.com/reel/DNdhZDEJRye/) → 機張｜下午茶 [CORALANI](https://www.instagram.com/reel/DNKy23nJXwp/) → 海雲台｜HILLSPA → 晚餐'] },
+      { label: 'DAY 5｜', lines: ['中餐 → 金浦機場 → 桃園機場'] }
+    ]
+  }
+];
+
+function renderTravelGrid(region) {
+  region = region || 'all';
+  var grid = document.getElementById('travel-grid');
+  if (!grid) return;
+  var list = region === 'all' ? ITINERARIES : ITINERARIES.filter(function(it) { return it.region === region; });
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;padding:52px 0;text-align:center;"><p style="font-size:10px;letter-spacing:4px;color:var(--text-muted);">COMING SOON</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map(function(it) {
+    return '<div class="travel-card" onclick="openItinerary(\'' + it.id + '\')">' +
+      '<img src="' + it.image + '" alt="">' +
+      '<div class="travel-overlay">' +
+        '<span class="t-loc">' + it.loc + '</span>' +
+        '<span class="t-title">' + it.cardTitle + '</span>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function filterTravel(region) {
+  renderTravelGrid(region);
+  document.querySelectorAll('[data-travel-tab]').forEach(function(tab) {
+    tab.classList.toggle('active', tab.dataset.travelTab === region);
+  });
+}
+
+function openItinerary(id) {
+  var it = ITINERARIES.find(function(x) { return x.id === id; });
+  if (!it) return;
+  var html = '<p style="font-size:11px;letter-spacing:2px;color:rgba(232,223,200,0.45);margin:0 0 6px;">' + it.location + '</p>' +
+    '<h2 style="font-size:21px;font-weight:900;color:#fff;margin:0 0 20px;line-height:1.3;padding-right:32px;">' + it.title + '</h2>';
+  if (it.note) {
+    html += '<div style="border-top:1px solid rgba(232,223,200,0.1);border-bottom:1px solid rgba(232,223,200,0.1);padding:14px 0;margin-bottom:8px;">' +
+      '<p style="font-size:13px;color:rgba(232,223,200,0.7);margin:0;">' + it.note + '</p>' +
+    '</div>';
+  }
+  it.days.forEach(function(day) {
+    html += '<p style="font-size:10px;letter-spacing:3px;color:rgba(232,223,200,0.4);margin:18px 0 0;">' + day.label + '</p>' +
+      '<div class="day-card">' + day.lines.map(function(l) {
+        var html = l.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="color:#d4a843;text-decoration:underline;text-underline-offset:3px;">$1</a>');
+        return '<p>' + html + '</p>';
+      }).join('') + '</div>';
+  });
+  if (it.igLink) {
+    html += '<a href="' + it.igLink + '" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:28px;background:var(--accent-deep);color:#fff;padding:12px 28px;border-radius:24px;text-decoration:none;font-size:12px;letter-spacing:1.5px;">📱 前往 IG 查看影片</a>';
+  }
+  document.getElementById('itinerary-content').innerHTML = html;
+  var modal = document.getElementById('itinerary-modal');
+  modal.style.display = 'flex';
+  requestAnimationFrame(function() { modal.classList.add('open'); });
+  document.body.style.overflow = 'hidden';
+}
+
+function closeItinerary() {
+  var modal = document.getElementById('itinerary-modal');
+  modal.classList.remove('open');
+  setTimeout(function() { modal.style.display = 'none'; }, 350);
+  document.body.style.overflow = '';
+}
+
+// 頁面載入後執行初始過濾（套用 6 張限制 + 顯示展開按鈕）
+applyFilter();
+filterCategory('all');
+renderTravelGrid('kr');
+</script>
+<!-- Itinerary Modal -->
+<div id="itinerary-modal" onclick="closeItinerary()">
+  <div id="itinerary-sheet" onclick="event.stopPropagation()">
+    <div style="width:36px;height:4px;background:rgba(232,223,200,0.18);border-radius:2px;margin:0 auto 20px;"></div>
+    <button onclick="closeItinerary()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:rgba(232,223,200,0.5);font-size:24px;cursor:pointer;line-height:1;padding:4px;">×</button>
+    <div id="itinerary-content"></div>
+  </div>
+</div>
+
+<!-- ── Side Nav Overlay ── -->
+<div id="side-overlay" onclick="closeSideNav()"></div>
+
+<!-- ── Side Nav Panel ── -->
+<div id="side-nav">
+  <div class="sn-header">
+    <span class="sn-title">小西亞的咿</span>
+    <button class="sn-close" onclick="closeSideNav()">×</button>
+  </div>
+  <div class="sn-items">
+    <div class="sn-item" onclick="navTo('explore')">
+      <div class="sn-item-left">
+        <span class="sn-item-title">Reels</span>
+        <span class="sn-item-sub">餐廳・咖啡廳・甜點</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+    <div class="sn-item" onclick="navTo('travel')">
+      <div class="sn-item-left">
+        <span class="sn-item-title">旅遊行程</span>
+        <span class="sn-item-sub">台日韓馬完整攻略</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+    <div class="sn-item" onclick="navTo('group')">
+      <div class="sn-item-left">
+        <span class="sn-item-title">活動團購</span>
+        <span class="sn-item-sub">開箱・品牌活動</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+    <div class="sn-item accent" onclick="window.location.href='collab.html'">
+      <div class="sn-item-left">
+        <span class="sn-item-title">品牌合作</span>
+        <span class="sn-item-sub">洽談合作邀約</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+    <div class="sn-item" onclick="openAdmin()">
+      <div class="sn-item-left">
+        <span class="sn-item-title">內容管理</span>
+        <span class="sn-item-sub">需要密碼</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+  </div>
+  <div class="sn-footer">@xiaoxiya._.foodie</div>
+</div>
+
+<!-- ── Admin Modal ── -->
+<div id="admin-overlay">
+  <div id="admin-box">
+    <!-- 登入畫面 -->
+    <div id="admin-login">
+      <div class="admin-hdr" style="padding:20px 0 0;">
+        <h3>內容管理</h3>
+        <button class="admin-close" onclick="closeAdmin()">×</button>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:24px;">請輸入管理密碼</p>
+      <input id="admin-pw" type="password" class="admin-pw-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdminPw()">
+      <div id="admin-pw-err" class="admin-pw-err"></div>
+      <button class="admin-save-btn" onclick="checkAdminPw()">進入後台</button>
+    </div>
+    <!-- 後台內容 -->
+    <div id="admin-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="admin-hdr">
+        <h3>內容管理</h3>
+        <button class="admin-close" onclick="closeAdmin()">×</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab" onclick="switchAdminTab('shop')">探店</button>
+        <button class="admin-tab" onclick="switchAdminTab('travel')">旅行</button>
+        <button class="admin-tab" onclick="switchAdminTab('group')">團購</button>
+        <button class="admin-tab active" onclick="switchAdminTab('collab')">品牌合作</button>
+        <button class="admin-tab" onclick="switchAdminTab('avatar')">大頭照</button>
+      </div>
+      <div class="admin-body">
+        <div id="admin-pane-shop" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-travel" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-group" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-avatar" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-collab" class="admin-pane active">
+          <p style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:16px;">數 據 卡 片</p>
+          <div id="admin-collab-editors"></div>
+          <button class="admin-save-btn" onclick="saveCollabStats()">儲存並更新頁面</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Side Nav ──
+function openSideNav() {
+  var overlay = document.getElementById('side-overlay');
+  var nav = document.getElementById('side-nav');
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() { overlay.classList.add('open'); nav.classList.add('open'); }, 10);
+}
+function closeSideNav() {
+  var overlay = document.getElementById('side-overlay');
+  var nav = document.getElementById('side-nav');
+  overlay.classList.remove('open');
+  nav.classList.remove('open');
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 320);
+}
+function navTo(target) {
+  closeSideNav();
+  setTimeout(function() {
+    if (target === 'explore' || target === 'travel' || target === 'group') {
+      var el = document.getElementById('works');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(function() { switchContentType(target); }, 400);
+    } else {
+      var el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 340);
+}
+
+// ── Admin ──
+var ADMIN_PW = 'xiaoxiya';
+var DEFAULT_STATS = [
+  { number: '200', unit: '萬', desc: '單支最高廣告觸及', note: '商家投廣後紀錄' },
+  { number: '2,100', unit: '+', desc: 'IG 粉絲', note: '' },
+  { number: '4,000', unit: '+', desc: '平均每月觸及', note: '' }
+];
+
+function getCollabStats() {
+  try {
+    var s = localStorage.getItem('xiaoxiya_collab_stats');
+    return s ? JSON.parse(s) : DEFAULT_STATS;
+  } catch(e) { return DEFAULT_STATS; }
+}
+
+function renderCollabStats() {
+  var stats = getCollabStats();
+  var el = document.getElementById('collab-stats');
+  if (!el) return;
+  el.innerHTML = stats.map(function(s) {
+    return '<div class="collab-stat">' +
+      '<div class="collab-stat-num">' + s.number + '<span class="collab-stat-unit">' + s.unit + '</span></div>' +
+      '<div class="collab-stat-desc">' + s.desc + '</div>' +
+      (s.note ? '<div class="collab-stat-note">' + s.note + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function renderAdminCollabEditors() {
+  var stats = getCollabStats();
+  var container = document.getElementById('admin-collab-editors');
+  container.innerHTML = stats.map(function(s, i) {
+    return '<div class="admin-card-editor">' +
+      '<div class="admin-row">' +
+        '<div class="admin-field"><label class="admin-label">數字</label><input class="admin-input" id="stat-num-'+i+'" value="'+s.number+'"></div>' +
+        '<div class="admin-field" style="max-width:100px;"><label class="admin-label">單位</label><input class="admin-input" id="stat-unit-'+i+'" value="'+s.unit+'"></div>' +
+      '</div>' +
+      '<div class="admin-field" style="margin-bottom:10px;"><label class="admin-label">說明</label><input class="admin-input" id="stat-desc-'+i+'" value="'+s.desc+'"></div>' +
+      '<div class="admin-field"><label class="admin-label">備注（選填）</label><input class="admin-input" id="stat-note-'+i+'" value="'+(s.note||'')+'"></div>' +
+    '</div>';
+  }).join('');
+}
+
+function saveCollabStats() {
+  var stats = getCollabStats();
+  var newStats = stats.map(function(s, i) {
+    return {
+      number: document.getElementById('stat-num-'+i).value,
+      unit:   document.getElementById('stat-unit-'+i).value,
+      desc:   document.getElementById('stat-desc-'+i).value,
+      note:   document.getElementById('stat-note-'+i).value
+    };
+  });
+  localStorage.setItem('xiaoxiya_collab_stats', JSON.stringify(newStats));
+  renderCollabStats();
+  var btn = document.querySelector('.admin-save-btn');
+  btn.textContent = '✓ 已儲存';
+  setTimeout(function() { btn.textContent = '儲存並更新頁面'; }, 1500);
+}
+
+function openAdmin() {
+  closeSideNav();
+  setTimeout(function() {
+    document.getElementById('admin-overlay').classList.add('open');
+    document.getElementById('admin-overlay').style.display = 'flex';
+    document.getElementById('admin-login').style.display = 'block';
+    document.getElementById('admin-content').style.display = 'none';
+    document.getElementById('admin-pw').value = '';
+    document.getElementById('admin-pw-err').textContent = '';
+    document.body.style.overflow = 'hidden';
+  }, 340);
+}
+
+function closeAdmin() {
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.getElementById('admin-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function checkAdminPw() {
+  var pw = document.getElementById('admin-pw').value;
+  if (pw === ADMIN_PW) {
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-content').style.display = 'flex';
+    switchAdminTab('collab');
+    renderAdminCollabEditors();
+  } else {
+    document.getElementById('admin-pw-err').textContent = '密碼錯誤，請再試一次';
+    document.getElementById('admin-pw').value = '';
+  }
+}
+
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(function(t) {
+    t.classList.toggle('active', t.getAttribute('onclick').includes("'"+tab+"'"));
+  });
+  document.querySelectorAll('.admin-pane').forEach(function(p) { p.classList.remove('active'); });
+  var pane = document.getElementById('admin-pane-'+tab);
+  if (pane) pane.classList.add('active');
+}
+
+// 初始化品牌合作數據
+renderCollabStats();
+</script>
+</body>
+</html>
