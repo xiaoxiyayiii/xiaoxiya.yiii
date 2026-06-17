@@ -120,6 +120,33 @@ em { color: var(--accent); font-style: normal; }
   pointer-events: auto;
 }
 #back-to-top:hover { background: var(--accent); }
+#ig-fab {
+  position: fixed;
+  bottom: 80px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 999;
+  text-decoration: none;
+}
+#ig-fab.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#ig-fab:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
 @keyframes fadeDown {
   0%, 100% { opacity:0.4; transform:translateY(0); }
   50%       { opacity:1;   transform:translateY(6px); }
@@ -199,9 +226,9 @@ em { color: var(--accent); font-style: normal; }
 #itinerary-modal.open { opacity:1; pointer-events:auto; }
 #itinerary-sheet { background:#111111; width:100%; max-height:90vh; border-radius:20px 20px 0 0; overflow-y:auto; padding:12px 24px 52px; transform:translateY(100%); transition:transform 0.35s cubic-bezier(0.32,0.72,0,1); position:relative; }
 #itinerary-modal.open #itinerary-sheet { transform:translateY(0); }
-.day-card { background:rgba(232,223,200,0.07); border-radius:12px; padding:16px 18px; margin-top:10px; }
-.day-card p { color:rgba(232,223,200,0.82); font-size:14px; line-height:1.75; margin:0; }
-.day-card p + p { margin-top:6px; color:rgba(232,223,200,0.55); font-size:13px; }
+.day-card { background:rgba(255,255,255,0.06); border-radius:12px; padding:16px 18px; margin-top:8px; border-left:3px solid var(--accent-deep); }
+.day-card p { color:#ffffff; font-size:14px; line-height:1.9; margin:0; }
+.day-card p + p { margin-top:8px; color:var(--accent); font-size:13px; }
 .kr-tab { background:none; border:none; padding:4px 0; font-size:11px; color:var(--text-muted); cursor:pointer; letter-spacing:1.5px; position:relative; transition:color 0.2s; }
 .kr-tab::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:var(--accent-deep); transform:scaleX(0); transition:transform 0.2s ease; }
 .kr-tab.active { color:var(--accent-deep); font-weight:700; }
@@ -226,10 +253,167 @@ em { color: var(--accent); font-style: normal; }
   .works-grid    { grid-template-columns: repeat(3,1fr) !important; }
   .cat-works-grid { grid-template-columns: repeat(3,1fr) !important; }
 }
+
+/* ── Nav Trigger ── */
+#nav-trigger {
+  position: fixed; top: 20px; right: 20px; z-index: 9000;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(232,223,200,0.08); border: 1px solid rgba(232,223,200,0.18);
+  color: var(--accent); font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+#nav-trigger:hover { background: rgba(232,223,200,0.16); }
+
+/* ── Side Nav ── */
+#side-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 9001; opacity: 0; transition: opacity 0.3s;
+}
+#side-overlay.open { opacity: 1; }
+
+#side-nav {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+  background: #111111; z-index: 9002;
+  transform: translateX(100%); transition: transform 0.32s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column;
+  border-left: 1px solid rgba(232,223,200,0.08);
+}
+#side-nav.open { transform: translateX(0); }
+
+.sn-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 20px 18px;
+  border-bottom: 1px solid rgba(232,223,200,0.08);
+}
+.sn-title { font-size: 15px; font-weight: 700; color: var(--accent); }
+.sn-close {
+  background: none; border: none; color: rgba(232,223,200,0.35);
+  font-size: 22px; cursor: pointer; line-height: 1; padding: 2px;
+  transition: color 0.15s;
+}
+.sn-close:hover { color: var(--accent); }
+
+.sn-items { flex: 1; overflow-y: auto; }
+
+.sn-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; cursor: pointer;
+  border-bottom: 1px solid rgba(232,223,200,0.05);
+  transition: background 0.15s; text-decoration: none;
+}
+.sn-item:hover { background: rgba(232,223,200,0.04); }
+.sn-item.accent .sn-item-title { color: var(--accent); }
+
+.sn-item-left { display: flex; flex-direction: column; gap: 3px; }
+.sn-item-title { font-size: 15px; font-weight: 600; color: var(--text-light); }
+.sn-item-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.3px; }
+.sn-arrow { color: rgba(232,223,200,0.25); font-size: 11px; flex-shrink: 0; }
+
+.sn-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(232,223,200,0.08);
+  font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px;
+}
+
+/* ── Brand Collab Stats ── */
+.collab-stats { display: flex; gap: 2px; flex-wrap: wrap; }
+.collab-stat {
+  flex: 1 1 130px; padding: 24px 20px;
+  background: var(--bg-dark);
+  border: 1px solid rgba(232,223,200,0.07);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.collab-stat-num { font-size: 28px; font-weight: 900; color: var(--accent); letter-spacing: -1px; line-height: 1; display: flex; align-items: baseline; gap: 3px; }
+.collab-stat-unit { font-size: 16px; color: rgba(232,223,200,0.45); font-weight: 400; }
+.collab-stat-desc { font-size: 12px; color: var(--text-mid); margin-top: 6px; }
+.collab-stat-note { font-size: 10px; color: var(--text-muted); letter-spacing: 0.5px; margin-top: 2px; }
+
+/* ── Admin Modal ── */
+#admin-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+  z-index: 9500; align-items: center; justify-content: center;
+}
+#admin-overlay.open { display: flex; }
+
+#admin-box {
+  width: 92%; max-width: 680px; max-height: 88vh;
+  background: #1c1410; border-radius: 16px;
+  overflow: hidden; display: flex; flex-direction: column;
+  border: 1px solid rgba(232,223,200,0.12);
+}
+.admin-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 20px 0;
+}
+.admin-hdr h3 { font-size: 16px; font-weight: 700; color: var(--text-light); }
+.admin-close {
+  background: none; border: none; color: rgba(232,223,200,0.4);
+  font-size: 22px; cursor: pointer; padding: 2px; transition: color 0.15s;
+}
+.admin-close:hover { color: var(--text-light); }
+
+#admin-login { padding: 40px 28px; text-align: center; }
+.admin-pw-input {
+  width: 100%; padding: 12px 16px;
+  background: rgba(232,223,200,0.06); border: 1px solid rgba(232,223,200,0.2);
+  border-radius: 8px; color: var(--text-light); font-size: 15px;
+  text-align: center; letter-spacing: 3px; margin: 16px 0 12px;
+  font-family: inherit;
+}
+.admin-pw-input:focus { outline: none; border-color: var(--accent); }
+.admin-pw-err { font-size: 12px; color: #e06060; margin-bottom: 10px; min-height: 18px; }
+
+.admin-tabs {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 16px 20px 0;
+}
+.admin-tab {
+  padding: 7px 16px; border-radius: 20px;
+  border: 1px solid rgba(232,223,200,0.2);
+  font-size: 12px; cursor: pointer;
+  background: none; color: var(--text-muted); transition: all 0.15s;
+}
+.admin-tab.active { background: var(--accent); color: #0a0a0a; font-weight: 700; border-color: var(--accent); }
+.admin-tab:not(.active):hover { color: var(--text-light); border-color: rgba(232,223,200,0.4); }
+
+.admin-body { flex: 1; overflow-y: auto; padding: 20px; }
+.admin-pane { display: none; }
+.admin-pane.active { display: block; }
+
+.admin-card-editor {
+  background: rgba(232,223,200,0.04); border: 1px solid rgba(232,223,200,0.1);
+  border-radius: 10px; padding: 16px; margin-bottom: 12px;
+}
+.admin-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.admin-field { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.admin-label { font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px; }
+.admin-input {
+  background: rgba(232,223,200,0.06); border: 1px solid rgba(232,223,200,0.15);
+  border-radius: 6px; padding: 9px 12px;
+  color: var(--text-light); font-size: 14px; width: 100%; font-family: inherit;
+}
+.admin-input:focus { outline: none; border-color: var(--accent); }
+.admin-save-btn {
+  width: 100%; padding: 13px;
+  background: var(--accent); color: #0a0a0a; border: none;
+  border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; margin-top: 6px; transition: background 0.2s;
+}
+.admin-save-btn:hover { background: var(--accent-deep); }
+.admin-coming { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 11px; letter-spacing: 3px; }
 </style>
 </head>
 <body>
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂部">↑</button>
+<a id="ig-fab" href="https://www.instagram.com/xiaoxiya._.foodie/" target="_blank" aria-label="追蹤 IG">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="white" stroke-width="2"/>
+    <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/>
+    <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+  </svg>
+</a>
+<button id="nav-trigger" onclick="openSideNav()" aria-label="選單">≡</button>
 
 <!-- ① HERO -->
 <section id="hero" style="
@@ -444,9 +628,9 @@ em { color: var(--accent); font-style: normal; }
     <div id="ctype-travel" style="display:none;">
       <div style="margin-bottom:16px;margin-top:4px;">
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button class="works-tab" data-travel-tab="all" onclick="filterTravel('all')">全部</button>
+          <button class="works-tab active" data-travel-tab="all" onclick="filterTravel('all')">全部</button>
           <button class="works-tab" data-travel-tab="jp" onclick="filterTravel('jp')">🇯🇵 日本</button>
-          <button class="works-tab active" data-travel-tab="kr" onclick="filterTravel('kr')">🇰🇷 韓國</button>
+          <button class="works-tab" data-travel-tab="kr" onclick="filterTravel('kr')">🇰🇷 韓國</button>
           <button class="works-tab" data-travel-tab="my" onclick="filterTravel('my')">🇲🇾 馬來西亞</button>
         </div>
       </div>
@@ -468,8 +652,8 @@ em { color: var(--accent); font-style: normal; }
         <button class="works-tab active" data-cat-tab="all" onclick="filterCategory('all')">全部</button>
         <button class="works-tab" data-cat-tab="food" onclick="filterCategory('food')">🍜 美食</button>
         <button class="works-tab" data-cat-tab="cafe" onclick="filterCategory('cafe')">☕ 咖啡廳</button>
-        <button class="works-tab" data-cat-tab="hidden" onclick="filterCategory('hidden')">📍 私藏景點</button>
-        <button class="works-tab" data-cat-tab="hotel" onclick="filterCategory('hotel')">🏨 住宿推薦</button>
+        <button class="works-tab" data-cat-tab="hidden" onclick="filterCategory('hidden')">📍 景點</button>
+        <button class="works-tab" data-cat-tab="hotel" onclick="filterCategory('hotel')">🏨 住宿</button>
       </div>
     </div>
     <div class="cat-works-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:16px;">
@@ -604,7 +788,7 @@ em { color: var(--accent); font-style: normal; }
 
 <!-- ③ CATEGORIES -->
 <section id="categories" style="background:var(--bg-mid);padding:52px 24px;border-top:1px solid rgba(232,223,200,0.08);">
-  <div style="max-width:960px;margin:0 auto;">
+  <div style="max-width:558px;margin:0 auto;">
     <span class="eyebrow">Content Categories</span>
     <h2 class="section-title" style="color:var(--text-light);margin-bottom:28px;">我的內容涵蓋</h2>
     <div class="cat-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);">
@@ -637,31 +821,6 @@ em { color: var(--accent); font-style: normal; }
   </div>
 </section>
 
-<!-- ⑥ BRANDS -->
-<section id="brands" style="display:none;background:var(--bg-mid);padding:48px 24px;border-top:1px solid rgba(232,223,200,0.08);">
-  <div style="max-width:800px;margin:0 auto;">
-    <span class="eyebrow">Brand Collaborations</span>
-    <h2 class="section-title" style="margin-bottom:24px;">合作品牌</h2>
-    <div class="brands-row" style="display:flex;flex-wrap:wrap;gap:2px;">
-      <div style="flex:1 1 180px;background:var(--bg-light);padding:28px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;border:1px solid rgba(232,223,200,0.1);">
-        <span style="font-size:28px;">🏪</span>
-        <div style="font-size:13px;font-weight:700;color:var(--text-light);">全家 FamilyMart</div>
-        <div style="font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">第四屆品牌大使</div>
-      </div>
-      <div style="flex:1 1 180px;background:var(--bg-light);padding:28px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;border:1px solid rgba(232,223,200,0.1);">
-        <span style="font-size:28px;">📦</span>
-        <div style="font-size:13px;font-weight:700;color:var(--text-light);">歡迎敲敲小盒子</div>
-        <div style="font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">品牌合作</div>
-      </div>
-      <div style="flex:1 1 180px;background:transparent;border:1px dashed var(--accent);padding:28px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.5;">
-        <span style="font-size:28px;">＋</span>
-        <div style="font-size:13px;font-weight:700;color:var(--text-light);">期待與你合作</div>
-        <div style="font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">Your Brand Here</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ⑦ CONTACT -->
 <section id="contact" style="background:var(--bg-dark);padding:28px 24px;text-align:center;">
   <div style="max-width:600px;margin:0 auto;">
@@ -669,15 +828,21 @@ em { color: var(--accent); font-style: normal; }
     <h2 style="font-size:clamp(20px,3.5vw,30px);font-weight:900;color:var(--text-light);line-height:1.15;margin-bottom:8px;">
       一起創造<em>有溫度的內容</em>
     </h2>
-    <p style="color:var(--text-subtle);font-size:12px;line-height:1.7;margin-bottom:14px;">
-      餐廳探訪・旅遊體驗・產品開箱・品牌活動，歡迎聯繫討論合作。
-    </p>
+    <div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+      <span style="font-size:11px;color:rgba(232,223,200,0.65);letter-spacing:1.5px;padding:5px 14px;border:1px solid rgba(232,223,200,0.18);border-radius:20px;">餐廳探訪</span>
+      <span style="font-size:11px;color:rgba(232,223,200,0.65);letter-spacing:1.5px;padding:5px 14px;border:1px solid rgba(232,223,200,0.18);border-radius:20px;">旅遊體驗</span>
+      <span style="font-size:11px;color:rgba(232,223,200,0.65);letter-spacing:1.5px;padding:5px 14px;border:1px solid rgba(232,223,200,0.18);border-radius:20px;">產品開箱</span>
+      <span style="font-size:11px;color:rgba(232,223,200,0.65);letter-spacing:1.5px;padding:5px 14px;border:1px solid rgba(232,223,200,0.18);border-radius:20px;">品牌活動</span>
+    </div>
+    <p style="color:rgba(232,223,200,0.4);font-size:11px;letter-spacing:2px;margin-bottom:14px;">歡迎聯繫討論合作</p>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
       <a href="https://www.instagram.com/xiaoxiya._.foodie/" target="_blank" class="btn-hairline">📩 發送合作邀請</a>
     </div>
     <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(232,223,200,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-      <p style="font-size:10px;color:var(--text-faint);letter-spacing:2px;">
-        @xiaoxiya._.foodie &nbsp;·&nbsp; 美食 × 旅行 × 生活
+      <p style="font-size:11px;letter-spacing:1.5px;">
+        <span style="color:var(--accent);font-weight:600;">@xiaoxiya._.foodie</span>
+        <span style="color:rgba(232,223,200,0.25);margin:0 6px;">·</span>
+        <span style="color:rgba(232,223,200,0.5);">美食 × 旅行 × 生活</span>
       </p>
       <div style="display:flex;align-items:baseline;gap:6px;">
         <div id="visitor-count" style="font-size:18px;font-weight:900;color:var(--accent);letter-spacing:-1px;line-height:1;">—</div>
@@ -742,6 +907,10 @@ function toggleMoreWorks() {
     card.style.display = (_worksExpanded || i < WORKS_LIMIT) ? '' : 'none';
   });
   if (chevron) chevron.style.transform = _worksExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+  if (!_worksExpanded) {
+    var wrap = document.getElementById('works-more-wrap');
+    if (wrap) wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 function filterWorks(region) {
@@ -799,6 +968,10 @@ function toggleMoreCat() {
     card.style.display = (_catExpanded || i < CAT_LIMIT) ? '' : 'none';
   });
   if (chevron) chevron.style.transform = _catExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+  if (!_catExpanded) {
+    var wrap = document.getElementById('cat-more-wrap');
+    if (wrap) wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 // 主分頁切換：探店筆記 / 旅遊行程 / 活動團購
@@ -824,10 +997,13 @@ function goToWorks(region) {
 // Back to top
 window.addEventListener('scroll', function() {
   var btn = document.getElementById('back-to-top');
+  var igFab = document.getElementById('ig-fab');
   if (window.scrollY > 300) {
     btn.classList.add('show');
+    igFab.classList.add('show');
   } else {
     btn.classList.remove('show');
+    igFab.classList.remove('show');
   }
 });
 
@@ -856,6 +1032,20 @@ window.addEventListener('scroll', function() {
 // ── 旅遊行程資料 ────────────────────────────────────────
 var ITINERARIES = [
   {
+    id: 'gwangan-restaurant',
+    region: 'kr',
+    image: 'images/travel_kr_02.JPG',
+    loc: '🇰🇷 釜山',
+    cardTitle: '廣安無敵海景餐廳',
+    location: '釜山',
+    title: '廣安無敵海景餐廳資訊',
+    note: null,
+    igLink: null,
+    days: [
+      { label: '📍 位置', lines: ['餐廳名稱｜Working holiday 워킹홀리데이', '廣安站海邊 OliveYoung 那棟三樓！', '[Naver Map 導航連結](https://naver.me/xKtNVvDx)'] }
+    ]
+  },
+  {
     id: 'busan-5d',
     region: 'kr',
     image: 'images/travel_kr_01.jpeg',
@@ -871,6 +1061,23 @@ var ITINERARIES = [
       { label: 'DAY 3｜', lines: ['早餐海雲台｜[EGG DROP](https://naver.me/FN747zwP) → 伴手禮[Busan BADA SAND](https://www.instagram.com/reel/DNa91u9pSQ5/) → 海理團路 → 下午茶 [Dongbaek Dessert Cafe](https://www.instagram.com/reel/DNa91u9pSQ5/) → 膠囊列車 → 海岸列車 → 晚餐 [돈독烤肉專門店](https://www.instagram.com/reel/DM0TDG8Jwoj/) → 廣安里｜[無人機表演](https://www.instagram.com/reel/DNxpVkiYsD8/) → 冬柏｜[Yacht holic 遊艇](https://www.instagram.com/reel/DOi4teykg_g/)'] },
       { label: 'DAY 4｜', lines: ['松亭站｜[holi lounge](https://www.instagram.com/reel/DMkpXVzp7Md/) → 機張｜[SKYLINE LUGE](https://www.instagram.com/reel/DNdhZDEJRye/) → 機張｜下午茶 [CORALANI](https://www.instagram.com/reel/DNKy23nJXwp/) → 海雲台｜HILLSPA → 晚餐'] },
       { label: 'DAY 5｜', lines: ['中餐 → 金浦機場 → 桃園機場'] }
+    ]
+  },
+  {
+    id: 'penang-fire-show',
+    region: 'my',
+    image: 'images/travel_my_01.PNG',
+    loc: '🇲🇾 馬來西亞',
+    cardTitle: '沙灘火焰秀餐廳資訊',
+    location: '檳城',
+    title: '沙灘火焰秀餐廳資訊',
+    note: null,
+    igLink: null,
+    days: [
+      { label: '🏠 活動場地', lines: ['Ferringhi Heart Beach Club', '📍 B2-1-2, Ferringhi Bay, 11100 Batu Ferringhi, Pulau Pinang, Malaysia', '🛋️ 我們選的是 Beach Dining Table 餐桌區，最靠主舞台（無低消）'] },
+      { label: '✨ 座位區怎麼選？', lines: ['｜Bean Bag 沙袋區（最熱門）｜ 不接受預約，18:30 正式開放現場排隊，每桌 RM150（限 3 人）', '｜Healing Seating 休閒椅區｜ 平日可預約；週末僅限現場，每桌 RM300（最多 6 人）', '｜Beach Dining Table 餐桌區｜ 平日可預約；週末需 8 人以上，無低消！', '｜Terrace Area 二樓露台區｜ 平日不開放，週末視情況，無低消，視野超讚！'] },
+      { label: '✨ 出發前必知', lines: ['火舞秀時間視天氣狀況而定，下雨可能延遲或取消', '預約需支付每位 RM25 訂金（抵達時釋放），當天取消不退還', '訂位僅保留 30 分鐘，超過時間訂金會被扣除', '下雨時露天座位（沙袋區）暫不開放，移至室內或二樓'] },
+      { label: '💡 懶人包總結', lines: ['想躺沙袋看火舞秀 → 18:30 前抵達現場排隊！'] }
     ]
   }
 ];
@@ -903,6 +1110,7 @@ function filterTravel(region) {
 }
 
 function openItinerary(id) {
+  history.replaceState(null, '', '#travel-' + id);
   var it = ITINERARIES.find(function(x) { return x.id === id; });
   if (!it) return;
   var html = '<p style="font-size:11px;letter-spacing:2px;color:rgba(232,223,200,0.45);margin:0 0 6px;">' + it.location + '</p>' +
@@ -913,7 +1121,7 @@ function openItinerary(id) {
     '</div>';
   }
   it.days.forEach(function(day) {
-    html += '<p style="font-size:10px;letter-spacing:3px;color:rgba(232,223,200,0.4);margin:18px 0 0;">' + day.label + '</p>' +
+    html += '<p style="font-size:13px;font-weight:700;letter-spacing:1px;color:rgba(232,223,200,0.85);margin:20px 0 0;">' + day.label + '</p>' +
       '<div class="day-card">' + day.lines.map(function(l) {
         var html = l.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="color:#d4a843;text-decoration:underline;text-underline-offset:3px;">$1</a>');
         return '<p>' + html + '</p>';
@@ -934,12 +1142,27 @@ function closeItinerary() {
   modal.classList.remove('open');
   setTimeout(function() { modal.style.display = 'none'; }, 350);
   document.body.style.overflow = '';
+  history.replaceState(null, '', window.location.pathname);
 }
 
 // 頁面載入後執行初始過濾（套用 6 張限制 + 顯示展開按鈕）
 applyFilter();
 filterCategory('all');
-renderTravelGrid('kr');
+renderTravelGrid('all');
+
+// 深連結：載入時若有 #travel-{id} 自動開啟對應行程
+(function() {
+  var hash = window.location.hash;
+  if (hash && hash.indexOf('#travel-') === 0) {
+    var id = hash.replace('#travel-', '');
+    var it = ITINERARIES.find(function(x) { return x.id === id; });
+    if (it) {
+      switchContentType('travel');
+      document.getElementById('works').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(function() { openItinerary(id); }, 500);
+    }
+  }
+})();
 </script>
 <!-- Itinerary Modal -->
 <div id="itinerary-modal" onclick="closeItinerary()">
@@ -949,5 +1172,220 @@ renderTravelGrid('kr');
     <div id="itinerary-content"></div>
   </div>
 </div>
+
+<!-- ── Side Nav Overlay ── -->
+<div id="side-overlay" onclick="closeSideNav()"></div>
+
+<!-- ── Side Nav Panel ── -->
+<div id="side-nav">
+  <div class="sn-header">
+    <span class="sn-title">小西亞的咿</span>
+    <button class="sn-close" onclick="closeSideNav()">×</button>
+  </div>
+  <div class="sn-items">
+    <div class="sn-item" onclick="navTo('explore')">
+      <div class="sn-item-left">
+        <span class="sn-item-title">Reels</span>
+        <span class="sn-item-sub">餐廳・咖啡廳・甜點</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+    <div class="sn-item" onclick="navTo('travel')">
+      <div class="sn-item-left">
+        <span class="sn-item-title">旅遊行程</span>
+        <span class="sn-item-sub">台日韓馬完整攻略</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+    <div class="sn-item" onclick="navTo('group')">
+      <div class="sn-item-left">
+        <span class="sn-item-title">活動團購</span>
+        <span class="sn-item-sub">開箱・品牌活動</span>
+      </div>
+      <span class="sn-arrow">›</span>
+    </div>
+  </div>
+  <div class="sn-footer">@xiaoxiya._.foodie</div>
+</div>
+
+<!-- ── Admin Modal ── -->
+<div id="admin-overlay">
+  <div id="admin-box">
+    <!-- 登入畫面 -->
+    <div id="admin-login">
+      <div class="admin-hdr" style="padding:20px 0 0;">
+        <h3>內容管理</h3>
+        <button class="admin-close" onclick="closeAdmin()">×</button>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:24px;">請輸入管理密碼</p>
+      <input id="admin-pw" type="password" class="admin-pw-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdminPw()">
+      <div id="admin-pw-err" class="admin-pw-err"></div>
+      <button class="admin-save-btn" onclick="checkAdminPw()">進入後台</button>
+    </div>
+    <!-- 後台內容 -->
+    <div id="admin-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="admin-hdr">
+        <h3>內容管理</h3>
+        <button class="admin-close" onclick="closeAdmin()">×</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab" onclick="switchAdminTab('shop')">探店</button>
+        <button class="admin-tab" onclick="switchAdminTab('travel')">旅行</button>
+        <button class="admin-tab" onclick="switchAdminTab('group')">團購</button>
+        <button class="admin-tab active" onclick="switchAdminTab('collab')">品牌合作</button>
+        <button class="admin-tab" onclick="switchAdminTab('avatar')">大頭照</button>
+      </div>
+      <div class="admin-body">
+        <div id="admin-pane-shop" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-travel" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-group" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-avatar" class="admin-pane"><p class="admin-coming">COMING SOON</p></div>
+        <div id="admin-pane-collab" class="admin-pane active">
+          <p style="font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:16px;">數 據 卡 片</p>
+          <div id="admin-collab-editors"></div>
+          <button class="admin-save-btn" onclick="saveCollabStats()">儲存並更新頁面</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Side Nav ──
+function openSideNav() {
+  var overlay = document.getElementById('side-overlay');
+  var nav = document.getElementById('side-nav');
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() { overlay.classList.add('open'); nav.classList.add('open'); }, 10);
+}
+function closeSideNav() {
+  var overlay = document.getElementById('side-overlay');
+  var nav = document.getElementById('side-nav');
+  overlay.classList.remove('open');
+  nav.classList.remove('open');
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 320);
+}
+function navTo(target) {
+  closeSideNav();
+  setTimeout(function() {
+    if (target === 'explore' || target === 'travel' || target === 'group') {
+      var el = document.getElementById('works');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(function() { switchContentType(target); }, 400);
+    } else {
+      var el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 340);
+}
+
+// ── Admin ──
+var ADMIN_PW = 'xiaoxiya';
+var DEFAULT_STATS = [
+  { number: '200', unit: '萬', desc: '單支最高廣告觸及', note: '商家投廣後紀錄' },
+  { number: '2,100', unit: '+', desc: 'IG 粉絲', note: '' },
+  { number: '4,000', unit: '+', desc: '平均每月觸及', note: '' }
+];
+
+function getCollabStats() {
+  try {
+    var s = localStorage.getItem('xiaoxiya_collab_stats');
+    return s ? JSON.parse(s) : DEFAULT_STATS;
+  } catch(e) { return DEFAULT_STATS; }
+}
+
+function renderCollabStats() {
+  var stats = getCollabStats();
+  var el = document.getElementById('collab-stats');
+  if (!el) return;
+  el.innerHTML = stats.map(function(s) {
+    return '<div class="collab-stat">' +
+      '<div class="collab-stat-num">' + s.number + '<span class="collab-stat-unit">' + s.unit + '</span></div>' +
+      '<div class="collab-stat-desc">' + s.desc + '</div>' +
+      (s.note ? '<div class="collab-stat-note">' + s.note + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function renderAdminCollabEditors() {
+  var stats = getCollabStats();
+  var container = document.getElementById('admin-collab-editors');
+  container.innerHTML = stats.map(function(s, i) {
+    return '<div class="admin-card-editor">' +
+      '<div class="admin-row">' +
+        '<div class="admin-field"><label class="admin-label">數字</label><input class="admin-input" id="stat-num-'+i+'" value="'+s.number+'"></div>' +
+        '<div class="admin-field" style="max-width:100px;"><label class="admin-label">單位</label><input class="admin-input" id="stat-unit-'+i+'" value="'+s.unit+'"></div>' +
+      '</div>' +
+      '<div class="admin-field" style="margin-bottom:10px;"><label class="admin-label">說明</label><input class="admin-input" id="stat-desc-'+i+'" value="'+s.desc+'"></div>' +
+      '<div class="admin-field"><label class="admin-label">備注（選填）</label><input class="admin-input" id="stat-note-'+i+'" value="'+(s.note||'')+'"></div>' +
+    '</div>';
+  }).join('');
+}
+
+function saveCollabStats() {
+  var stats = getCollabStats();
+  var newStats = stats.map(function(s, i) {
+    return {
+      number: document.getElementById('stat-num-'+i).value,
+      unit:   document.getElementById('stat-unit-'+i).value,
+      desc:   document.getElementById('stat-desc-'+i).value,
+      note:   document.getElementById('stat-note-'+i).value
+    };
+  });
+  localStorage.setItem('xiaoxiya_collab_stats', JSON.stringify(newStats));
+  renderCollabStats();
+  var btn = document.querySelector('.admin-save-btn');
+  btn.textContent = '✓ 已儲存';
+  setTimeout(function() { btn.textContent = '儲存並更新頁面'; }, 1500);
+}
+
+function openAdmin() {
+  closeSideNav();
+  setTimeout(function() {
+    document.getElementById('admin-overlay').classList.add('open');
+    document.getElementById('admin-overlay').style.display = 'flex';
+    document.getElementById('admin-login').style.display = 'block';
+    document.getElementById('admin-content').style.display = 'none';
+    document.getElementById('admin-pw').value = '';
+    document.getElementById('admin-pw-err').textContent = '';
+    document.body.style.overflow = 'hidden';
+  }, 340);
+}
+
+function closeAdmin() {
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.getElementById('admin-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function checkAdminPw() {
+  var pw = document.getElementById('admin-pw').value;
+  if (pw === ADMIN_PW) {
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-content').style.display = 'flex';
+    switchAdminTab('collab');
+    renderAdminCollabEditors();
+  } else {
+    document.getElementById('admin-pw-err').textContent = '密碼錯誤，請再試一次';
+    document.getElementById('admin-pw').value = '';
+  }
+}
+
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(function(t) {
+    t.classList.toggle('active', t.getAttribute('onclick').includes("'"+tab+"'"));
+  });
+  document.querySelectorAll('.admin-pane').forEach(function(p) { p.classList.remove('active'); });
+  var pane = document.getElementById('admin-pane-'+tab);
+  if (pane) pane.classList.add('active');
+}
+
+// 初始化品牌合作數據
+renderCollabStats();
+</script>
 </body>
 </html>
